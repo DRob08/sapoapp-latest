@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<head>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+</head>
+
+<style>
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td{
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    border: 1px solid #dddddd;
+    text-align: center !important;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #2c3e50;
+}
+
+    body {
+
+            /* background: rgba(0, 0, 0, 0) linear-gradient(to right, rgb(102, 125, 182), rgb(0, 130, 200), rgb(0, 130, 200), rgb(102, 125, 182)) repeat scroll 0% 0%; */
+           /* background-color: #77A6F7 !important;  */
+            <!--background: rgba(0, 0, 0, 0) linear-gradient(to right, rgb(41, 128, 185), rgb(44, 62, 80)) repeat scroll 0% 0%;-->
+
+            background: #536976 ;  /* fallback for old browsers */
+            background: linear-gradient(to right, #292E49, #536976); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background: -webkit-linear-gradient(to right, #292E49, #536976) repeat scroll 0% 0%;  /* Chrome 10-25, Safari 5.1-6 */
+
+
+
+
+
+           color: #ffffff !important;
+
+        }
+
+
+</style>
+
+{% block body %}
+{% include 'includes/_navbar.html'%}
+<!--<h1> Dashboard <small>Welcome {{session.username}}</small></h1>
+<a class="btn btn-success" href="/add_article"> Add Article Here</a>
+<hr>
+
+<table class="table table-stripped">
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Date</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    {% for article in articles %}
+    <tr>
+        <td>{{article.id}}</td>
+        <td>{{article.title}}</td>
+        <td>{{article.author}}</td>
+        <td>{{article.create_date}}</td>
+        <td><button class="btn btn-default" href="edit_article/{{article.id}}"> Edit </button></td>
+        <td><a href="edit_article/{{article.id}}" class="btn btn-default">Edit</a> </td>
+        <td>
+            <form action="{{url_for('delete_article', id=article.id)}}" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="submit" value="Delete" class="btn btn-danger">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>-->
+<div class="container">
+    <h2>Lista de Sapos</h2>
+    <p>Busqueda en Lista:</p>
+    <input id="myInput" type="text" placeholder="Buscar..">
+    <br><br>
+
+    <table id="dtBasicExample">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Alias</th>
+            <th>Fecha de Nac.</th>
+            <th>Cedula</th>
+            <th>Departamento</th>
+            <th>Ciudad</th>
+            <th><em class="fa fa-cog"></em></th>
+
+
+        </tr>
+        </thead>
+        <tbody id="myTable">
+        {% for profile in profiles %}
+        <tr>
+
+            <td style="display:none;">{{profile.id}}</td>
+            <td>{{loop.index}}</td>
+            <td>{% if profile.middle_name: %} {{profile.name}} {{profile.middle_name}} {% else %} {{profile.name }}{%
+                endif %} {% if profile.lastname_mother: %} {{profile.lastname}} {{profile.lastname_mother}} {% else %}
+                {{profile.lastname }}{% endif %}
+            </td>
+            <td>{% if profile.alias: %} {{profile.alias}} {% else %} N/A {% endif %}</td>
+            <td>{{profile.dob}}</td>
+            <td>{% if profile.cedula_id: %} {{profile.cedula_id}} {% else %} N/A {% endif %}</td>
+            <td>{% if profile.department: %} {{profile.department}} {% else %} N/A {% endif %}</td>
+            <td>{% if profile.city: %} {{profile.city}} {% else %} N/A {% endif %}</td>
+            <td align="center">
+                <!--<a class="btn btn-default"><em class="fa fa-pencil"></em></a>
+                <a class="btn btn-danger"><em class="fa fa-trash"></em></a>-->
+
+                <!--  <a class="btn btn-default" data-title="Edit" data-toggle="modal" data-target="#edit"><em class="fa fa-pencil"></em></a>
+                  <a class="btn btn-danger" data-title="Edit" data-toggle="modal" data-target="#edit"><em class="fa fa-trash"></em></a>-->
+
+
+                <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit"><span
+                        class="fa fa-pencil"></span></button>
+                <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete">
+                    <span class="fa fa-trash"></span></button>
+
+                <!--        <p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="fa fa-pencil"></span></button></p>
+                        <p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="fa fa-trash"></span></button></p>-->
+            </td>
+
+        </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+</div>
+
+
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-remove"
+                                                                                                  aria-hidden="true"></span>
+                </button>
+                <h4 class="modal-title custom_align" id="Heading">Edit Your Detail</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input class="form-control " type="text" id="name" placeholder="Mohsin">
+                </div>
+                <div class="form-group">
+
+                    <input class="form-control " type="text" placeholder="Irshad">
+                </div>
+                <div class="form-group">
+                    <textarea rows="2" class="form-control"
+                              placeholder="CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan"></textarea>
+
+
+                </div>
+            </div>
+            <div class="modal-footer ">
+                <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span
+                        class="fa fa-ok-sign"></span> Update
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script>
+    $(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+
+
+
+
+
+</script>
+
+{% endblock %}

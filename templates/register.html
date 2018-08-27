@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+{% extends 'layout.html'%}
+<style type="text/css">
+        // solution 1:
+       .datepicker {
+            font-size: 0.1em !important;
+        }
+        /* solution 2: the original datepicker use 20px so replace with the following:*/
+
+        .datepicker td, .datepicker th {
+            width: 1.5em !important;
+            height: 1.5em !important;
+        }
+
+</style>
+
+{% block body %}
+<!--    <h1 align="center">
+        Register
+    </h1>
+<div class="row h-75 justify-content-center align-items-center">
+
+
+    {% from "includes/_formhelpers.html" import render_field%}
+    <form method="POST" action="">
+        <div class="form-group">
+            {{ render_field(form.name, class_="form-control")}}
+        </div>
+
+         <div class="form-group">
+            {{ render_field(form.email,  class_="form-control")}}
+        </div>
+
+        <div class="form-group">
+            {{ render_field(form.username, class_="form-control")}}
+        </div>
+
+         <div class="form-group">
+            {{ render_field(form.password, class_="form-control")}}
+        </div>
+
+         <div class="form-group">
+            {{ render_field(form.confirm, class_="form-control")}}
+        </div>
+
+        <div class="form-group">
+            {{ render_field(form.allusers, class_="form-control")}}
+        </div>
+        <p><input type="submit" class="btn btn-primary" value="Submit"></p>
+    </form>
+</div>
+
+    <script >
+        $( document ).ready(function() {
+            console.log( "ready!" );
+            var users=[];
+
+            function loadUsers(){
+                $.getJSON('/countries', function(data, status, xhr){
+                    for (var i = 0; i < data.length; i++ ) {
+                        users.push(data[i].name);
+                    }
+            });
+            };
+
+            loadUsers();
+
+            $('#username').on('input', ':text', function(){
+                var x = document.getElementById("allusers");
+                x.value = x.value.toUpperCase();
+
+             });
+
+             $('#username').change(function() {
+                var request = $.ajax({
+                            type: 'POST',
+                            url: '/register',
+                             data: {
+                                'username' : $('#username').val()
+                            },
+                        });
+            });
+
+            $( "#username" ).keydown(function() {
+                var request = $.ajax({
+                            type: 'POST',
+                            url: '/register',
+                             data: {
+                                'username' : $('#username').val()
+                            },
+                        });
+            });
+        });
+    </script>-->
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <form class="border border-light p-5" method="POST" action="" enctype="multipart/form-data">
+                <h5 class="card-header info-color white-text text-center py-4">
+                    <strong>Reportar</strong>
+                </h5>
+
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="inputFirstname">Primer Nombre</label>
+                        <input type="text" class="form-control" id="inputFirstname" placeholder="Primer Nombre"
+                               required>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="secondname">Segundo Nombre</label>
+                        <input type="text" class="form-control" id="secondname" placeholder="2do Nombre">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="lastname">Apellido</label>
+                        <input type="text" class="form-control" id="lastname" placeholder="Apellido Paterno" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="secondlname">Segundo Apellido</label>
+                        <input type="text" class="form-control" id="secondlname" placeholder="Apellido Materno"
+                               required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class='col-sm-3'>
+                        <label for="datepicker">Fecha de Nac</label>
+
+                        <div class="input-group mb-3">
+                            <input class="form-control" data-date-format="dd/mm/yyyy" id="datepicker">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><span class="fa fa-calendar" style="color: black"></span></span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <label for="cedula">Cedula ID</label>
+                        <input type="text" class="form-control" id="cedula" placeholder="# de Cedula" required>
+
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        <label for="phone">Telefono</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="phone" placeholder="Mobil">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><span class="fa fa-phone"
+                                                                     style="color: black"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  <div class='col-sm-3'>
+                          <label for="dob">Fecha Nacimiento</label>
+                          <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                  <span class="input-group-text"><span class="fa fa-calendar"></span></span>
+                              </div>
+                              <input class="form-control" data-date-format="dd/mm/yyyy" id="datepicker">
+                          </div>
+                      </div>-->
+
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="profile_img">Foto</label>
+                        <div class="custom-file" id="customFile" lang="es">
+                            <input type="file" class="custom-file-input" id="profile_img"
+                                   aria-describedby="fileHelp">
+                            <label class="custom-file-label" for="profile_img">
+                                Buscar imagen...
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        <label for="alias">Alias</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="alias" placeholder="Conocido como..">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><span class="fa fa-user-circle-o"
+                                                                     style="color: black"></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="inputAddressLine1">Direccion</label>
+                        <input type="text" class="form-control" id="inputAddressLine1" placeholder="Direccion">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="area">Barrio/Colonia</label>
+                        <input type="text" class="form-control" id="area" placeholder="Especificar..">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="municipality">Municipio</label>
+                        <!--<input type="text" class="form-control" id="inputCity" placeholder="City">-->
+
+                        <select class="custom-select" name="municipality" id="municipality">
+                            <option selected>Cual Municipio?...</option>
+                            <option>Boaco</option>
+                            <option>Carazo</option>
+                            <option>Chinandega</option>
+                            <option>Esteli</option>
+                            <option>Granada</option>
+                            <option>Jinotega</option>
+                            <option>Leeon</option>
+                            <option>Madriz</option>
+                            <option>Managua</option>
+                            <option>Matagalpa</option>
+                            <option>Nueva Segovia</option>
+                            <option>Rivas</option>
+                            <option>Rio San Juan</option>
+                            <option>Costa Caribe Norte</option>
+                            <option>Costa Caribe Sur</option>
+                        </select>
+
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="department">Departamento</label>
+                        <!--<input type="text" class="form-control" id="inputCity" placeholder="City">-->
+
+                        <select class="custom-select" name="department" id="department">
+                            <option selected>Cual Departamento?...</option>
+                            <option>Boaco</option>
+                            <option>Carazo</option>
+                            <option>Chinandega</option>
+                            <option>Esteli</option>
+                            <option>Granada</option>
+                            <option>Jinotega</option>
+                            <option>Leeon</option>
+                            <option>Madriz</option>
+                            <option>Managua</option>
+                            <option>Matagalpa</option>
+                            <option>Nueva Segovia</option>
+                            <option>Rivas</option>
+                            <option>Rio San Juan</option>
+                            <option>Costa Caribe Norte</option>
+                            <option>Costa Caribe Sur</option>
+                        </select>
+
+                    </div>
+
+
+                    <!--<div class="col-sm-3">
+                        <label for="inputState">State</label>
+                        <input type="text" class="form-control" id="inputState" placeholder="State">
+
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="inputPostalCode">Postal Code</label>
+                        <input type="text" class="form-control" id="inputPostalCode" placeholder="Postal Code">
+
+                    </div>-->
+                </div>
+                <div class="form-group row">
+
+                    <div class="col-sm-6">
+                        <label for="work">Empleo</label>
+                        <input type="text" class="form-control" id="work" placeholder="Trabajo..">
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="workphone">Telefono Empleo</label>
+                        <input type="text" class="form-control" id="workphone" placeholder="Oficinas Tel..">
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="delitos">Delitos:</label>
+                        <textarea class="form-control" rows="5" id="delitos"></textarea>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="delitos">Genero:</label>
+                        <!-- Default unchecked -->
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="female"
+                                   name="defaultExampleRadios">
+                            <label class="custom-control-label" for="female">Femenino</label>
+                        </div>
+
+                        <!-- Default checked -->
+                        <div class="custom-control custom-radio">
+
+                            <input type="radio" class="custom-control-input" id="male"
+                                   name="defaultExampleRadios">
+                            <label class="custom-control-label" for="male">Masculino</label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--<button type="button" class="btn btn-primary px-4 float-right">Save</button>-->
+
+                <!-- Sign in button -->
+                <button class="btn btn-outline-info btn-rounded btn-block waves-effect z-depth-0" type="submit">
+                    Agregar <i class="fa fa-user-plus fa-lg" aria-hidden="true"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.es.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css"
+      rel="stylesheet"/>
+
+<script>
+    $('#datepicker').datepicker({
+        weekStart: 1,
+        language: "es",
+        autoclose: true,
+        todayHighlight: true,
+    });
+
+
+    $('.custom-file-input').on('change', function() {
+        let fileName = $(this).val().split('\\').pop();
+        let label = $(this).siblings('.custom-file-label');
+
+        if (label.data('default-title') === undefined) {
+            label.data('default-title', label.html());
+        }
+
+        if (fileName === '') {
+            label.removeClass("selected").html(label.data('default-title'));
+        } else {
+            label.addClass("selected").html(fileName);
+        }
+    });
+
+
+
+
+
+
+
+</script>
+
+{% endblock %}
