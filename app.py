@@ -7,7 +7,7 @@ from datetime import datetime
 from functools import wraps
 
 import certifi
-import folium
+# import folium
 import geopy.geocoders
 import pandas as pd
 import requests
@@ -19,7 +19,6 @@ from flask_migrate import Migrate
 # from data import Articles
 from flask_mysqldb import MySQL
 from flask_sqlalchemy import SQLAlchemy
-from folium.plugins import MarkerCluster
 from geopy.geocoders import Nominatim
 from passlib.hash import sha256_crypt
 from sqlalchemy.engine import create_engine
@@ -566,9 +565,10 @@ def show_profile():
     return render_template('profiles.html', profiles=profiles)
 
 
-@app.route('/show_map')
-def mapview():
-    # # creating a map in the view
+# @app.route('/show_map')
+# def mapview():
+
+# creating a map in the view
     # mymap =  Map(
     #     identifier="catsmap",
     #     lat=12.335542,
@@ -618,39 +618,39 @@ def mapview():
     # )
     #
     # return render_template('show_map.html', mymap=mymap, sndmap=sndmap)
-    SF_COORDINATES = (37.76, -122.45)
-
-    firedata = pd.read_csv('/Users/DRob/PycharmProjects/myflaskapp/Fire_Incidents.csv')
-
-    firedata = firedata[pd.notnull(firedata['Location']) & pd.notnull(firedata['Address'])]
-
-    # for speed purposes
-    MAX_RECORDS = 1000
-
-    # create empty map zoomed in on San Francisco
-    mymap = folium.Map(location=SF_COORDINATES, zoom_start=12)
-
-    marker_cluster = MarkerCluster().add_to(mymap)
-
-    # add a marker for every record in the filtered data, use a clustered view
-    # for each in firedata[0:MAX_RECORDS].iterrows():
-    #     s = each['Location']
-    #     folium.Marker(
-    #         [each['location']],
-    #         clustered_marker=True).add_to(mymap)
-
-    for i in range(0, MAX_RECORDS):
-        latlong = firedata.iloc[i]['Location']
-
-        if latlong:
-            lat, lng = map(float, latlong.strip('()').split(','))
-
-            # folium.Marker([lat, lng], popup=firedata.iloc[i]['Address']).add_to(mymap)
-            folium.Marker([lat, lng], popup=firedata.iloc[i]['Address']).add_to(marker_cluster)
-
-    mymap.save('mapsf.html')
-
-    return mymap.get_root().render()
+# SF_COORDINATES = (37.76, -122.45)
+#
+# firedata = pd.read_csv('/Users/DRob/PycharmProjects/myflaskapp/Fire_Incidents.csv')
+#
+# firedata = firedata[pd.notnull(firedata['Location']) & pd.notnull(firedata['Address'])]
+#
+# # for speed purposes
+# MAX_RECORDS = 1000
+#
+# # create empty map zoomed in on San Francisco
+# mymap = folium.Map(location=SF_COORDINATES, zoom_start=12)
+#
+# marker_cluster = MarkerCluster().add_to(mymap)
+#
+# # add a marker for every record in the filtered data, use a clustered view
+# # for each in firedata[0:MAX_RECORDS].iterrows():
+# #     s = each['Location']
+# #     folium.Marker(
+# #         [each['location']],
+# #         clustered_marker=True).add_to(mymap)
+#
+# for i in range(0, MAX_RECORDS):
+#     latlong = firedata.iloc[i]['Location']
+#
+#     if latlong:
+#         lat, lng = map(float, latlong.strip('()').split(','))
+#
+#         # folium.Marker([lat, lng], popup=firedata.iloc[i]['Address']).add_to(mymap)
+#         folium.Marker([lat, lng], popup=firedata.iloc[i]['Address']).add_to(marker_cluster)
+#
+# mymap.save('mapsf.html')
+#
+# return mymap.get_root().render()
 
 
 # Single Article
