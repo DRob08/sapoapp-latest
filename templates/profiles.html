@@ -1,63 +1,87 @@
+<!DOCTYPE html>
 {% extends 'layout.html'%}
 
 {% block body %}
 
+<hr class="style13">
+<div class="container-fluid bg-light">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-2 pt-3">
+            <div class="form-group ">
+                <select name="area" id="area " class="form-control">
+                    <option disabled selected hidden>Barrio/Colonia</option>
+                    {% if areas %}
+                    {% for area in areas %}
+                    <option>{{area.AREA}}</option>
+                    {% endfor %}
+
+                    {% endif %}
+                    <!--  <option>BMW</option>
+                      <option>Audi</option>
+                      <option>Maruti</option>
+                      <option>Tesla</option>  -->
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2 pt-3">
+            <div class="form-group">
+                <select name="department" id="department" class="form-control">
+                    <option disabled selected hidden>Departamento</option>
+
+                    {% if departments %}
+                    {% for department in departments %}
+                    <option>{{department.department}}</option>
+                    {% endfor %}
+
+                    {% endif %}
+                    <!--   <option>BMW</option>
+                       <option>Audi</option>
+                       <option>Maruti</option>
+                       <option>Tesla</option> -->
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2 pt-3">
+            <div class="form-group">
+                <select name="municipality" id="municipality" class="form-control">
+                    <option disabled selected hidden>Municipio</option>
+
+                    {% if municipalities %}
+                    {% for municipality in municipalities %}
+                    <option>{{municipality.municipality}}</option>
+                    {% endfor %}
+
+                    {% endif %}
+                    <!--    <option>BMW</option>
+                       <option>Audi</option>
+                       <option>Maruti</option>
+                       <option>Tesla</option> -->
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2 pt-3">
+            <div class="form-group">
+                <select id="inputState" class="form-control">
+                    <option disabled selected hidden>Apellido</option>
+                    <option>BMW</option>
+                    <option>Audi</option>
+                    <option>Maruti</option>
+                    <option>Tesla</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+
+            <button id="mysearch" type="submit" class="btn btn-primary btn-block">Search</button>
+
+        </div>
+    </div>
+</div>
+<hr class="style13">
 
 <!-- Team -->
 <section id="team" class="pb-5">
-    <hr class="style13">
-    <div class="container-fluid bg-light ">
-        <div class="row align-items-center justify-content-center">
-            <div class="col-md-2 pt-3">
-                <div class="form-group ">
-                    <select id="inputState " class="form-control">
-                        <option selected>Brand</option>
-                        <option>BMW</option>
-                        <option>Audi</option>
-                        <option>Maruti</option>
-                        <option>Tesla</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-2 pt-3">
-                <div class="form-group">
-                    <select id="inputState" class="form-control">
-                        <option selected>Model</option>
-                        <option>BMW</option>
-                        <option>Audi</option>
-                        <option>Maruti</option>
-                        <option>Tesla</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-2 pt-3">
-                <div class="form-group">
-                    <select id="inputState" class="form-control">
-                        <option selected>Budget</option>
-                        <option>BMW</option>
-                        <option>Audi</option>
-                        <option>Maruti</option>
-                        <option>Tesla</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-2 pt-3">
-                <div class="form-group">
-                    <select id="inputState" class="form-control">
-                        <option selected>Type</option>
-                        <option>BMW</option>
-                        <option>Audi</option>
-                        <option>Maruti</option>
-                        <option>Tesla</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary btn-block">Search</button>
-            </div>
-        </div>
-    </div>
-    <hr class="style13">
+
     <div class="container">
         <h5 class="section-title h1">SAPOS</h5>
         <div class="row">
@@ -118,248 +142,6 @@
             </div>
             <!-- ./Team member -->
             {% endfor %}
-
-            <!--  Team member
-             <div class="col-xs-12 col-sm-6 col-md-4">
-                 <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                     <div class="mainflip">
-                         <div class="frontside">
-                             <div class="card">
-                                 <div class="card-body text-center">
-                                     <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_02.png" alt="card image"></p>
-                                     <h4 class="card-title">Sunlimetech</h4>
-                                     <p class="card-text">This is basic card with image on top, title, description and button.</p>
-                                     <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
-                                 </div>
-                             </div>
-                         </div>
-                         <div class="backside">
-                             <div class="card">
-                                 <div class="card-body text-center mt-4">
-                                     <h4 class="card-title">Sunlimetech</h4>
-                                     <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
-                                     <ul class="list-inline">
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-facebook"></i>
-                                             </a>
-                                         </li>
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-twitter"></i>
-                                             </a>
-                                         </li>
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-skype"></i>
-                                             </a>
-                                         </li>
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-google"></i>
-                                             </a>
-                                         </li>
-                                     </ul>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-              ./Team member
-              Team member
-             <div class="col-xs-12 col-sm-6 col-md-4">
-                 <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                     <div class="mainflip">
-                         <div class="frontside">
-                             <div class="card">
-                                 <div class="card-body text-center">
-                                     <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_03.png" alt="card image"></p>
-                                     <h4 class="card-title">Sunlimetech</h4>
-                                     <p class="card-text">This is basic card with image on top, title, description and button.</p>
-                                     <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
-                                 </div>
-                             </div>
-                         </div>
-                         <div class="backside">
-                             <div class="card">
-                                 <div class="card-body text-center mt-4">
-                                     <h4 class="card-title">Sunlimetech</h4>
-                                     <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
-                                     <ul class="list-inline">
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-facebook"></i>
-                                             </a>
-                                         </li>
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-twitter"></i>
-                                             </a>
-                                         </li>
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-skype"></i>
-                                             </a>
-                                         </li>
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-google"></i>
-                                             </a>
-                                         </li>
-                                     </ul>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-              ./Team member
-              Team member
-             <div class="col-xs-12 col-sm-6 col-md-4">
-                 <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                     <div class="mainflip">
-                         <div class="frontside">
-                             <div class="card">
-                                 <div class="card-body text-center">
-                                     <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_04.jpg" alt="card image"></p>
-                                     <h4 class="card-title">Sunlimetech</h4>
-                                     <p class="card-text">This is basic card with image on top, title, description and button.</p>
-                                     <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
-                                 </div>
-                             </div>
-                         </div>
-                         <div class="backside">
-                             <div class="card">
-                                 <div class="card-body text-center mt-4">
-                                     <h4 class="card-title">Sunlimetech</h4>
-                                     <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
-                                     <ul class="list-inline">
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-facebook"></i>
-                                             </a>
-                                         </li>
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-twitter"></i>
-                                             </a>
-                                         </li>
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-skype"></i>
-                                             </a>
-                                         </li>
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-google"></i>
-                                             </a>
-                                         </li>
-                                     </ul>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-              ./Team member
-              Team member
-             <div class="col-xs-12 col-sm-6 col-md-4">
-                 <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                     <div class="mainflip">
-                         <div class="frontside">
-                             <div class="card">
-                                 <div class="card-body text-center">
-                                     <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_05.png" alt="card image"></p>
-                                     <h4 class="card-title">Sunlimetech</h4>
-                                     <p class="card-text">This is basic card with image on top, title, description and button.</p>
-                                     <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
-                                 </div>
-                             </div>
-                         </div>
-                         <div class="backside">
-                             <div class="card">
-                                 <div class="card-body text-center mt-4">
-                                     <h4 class="card-title">Sunlimetech</h4>
-                                     <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
-                                     <ul class="list-inline">
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-facebook"></i>
-                                             </a>
-                                         </li>
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-twitter"></i>
-                                             </a>
-                                         </li>
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-skype"></i>
-                                             </a>
-                                         </li>
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-google"></i>
-                                             </a>
-                                         </li>
-                                     </ul>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-              ./Team member
-              Team member
-             <div class="col-xs-12 col-sm-6 col-md-4">
-                 <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                     <div class="mainflip">
-                         <div class="frontside">
-                             <div class="card">
-                                 <div class="card-body text-center">
-                                     <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_06.jpg" alt="card image"></p>
-                                     <h4 class="card-title">Sunlimetech</h4>
-                                     <p class="card-text">This is basic card with image on top, title, description and button.</p>
-                                     <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
-                                 </div>
-                             </div>
-                         </div>
-                         <div class="backside">
-                             <div class="card">
-                                 <div class="card-body text-center mt-4">
-                                     <h4 class="card-title">Sunlimetech</h4>
-                                     <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
-                                     <ul class="list-inline">
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-facebook"></i>
-                                             </a>
-                                         </li>
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-twitter"></i>
-                                             </a>
-                                         </li>
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-skype"></i>
-                                             </a>
-                                         </li>
-                                         <li class="list-inline-item">
-                                             <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                 <i class="fa fa-google"></i>
-                                             </a>
-                                         </li>
-                                     </ul>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-              ./Team member -->
-
         </div>
 
     </div>
@@ -372,18 +154,28 @@
 <!-- Team -->
 
 <script>
-    $(function(){
-        $("div").slice(0, 10).show(); // select the first ten
-        $("#load").click(function(e){ // click event for load more
-            e.preventDefault();
-        $("div:hidden").slice(0, 10).show(); // select next 10 hidden divs and show them
-        if($("div:hidden").length == 0){ // check if any hidden divs still exist
-            alert("No more divs"); // alert if there are none left
-        }
+
+
+     $('#mysearch').on('click', function() {
+         console.log('getJSON request succeeded!');
+
+         $.getJSON('/filter_profiles',{
+                mncplty: $('#municipality option:selected').val(),
+                dpt:  $('#department option:selected').val(),
+                area:  $('#area option:selected').val()
+            },
+              function(data) {
+
+
+            })
+            .done(function() { console.log('getJSON request succeeded!'); })
+            .fail(function(jqXHR, textStatus, errorThrown) { console.log('getJSON request failed! ' + textStatus); });
+
     });
-});
 
 </script>
 
 {% endblock %}
+
+
 
