@@ -549,20 +549,37 @@ def profile(profile_id):
     return render_template('profile.html', profile=profile)
 
 
-@app.route('/profiles')
+@app.route('/profiles', methods=['GET', 'POST'])
 def show_profile():
-    # Create Cursor
-    cur = mysql.connection.cursor()
+    if request.method == 'GET':
+        # Create Cursor
+        cur = mysql.connection.cursor()
 
-    # Get Articles
-    result = cur.execute("SELECT * FROM profiles")
+        # Get Articles
+        result = cur.execute("SELECT * FROM profiles")
+        profiles = cur.fetchall()
 
-    profiles = cur.fetchall()
+        # Get Areas
+        result = cur.execute("SELECT DISTINCT AREA from profiles where LENGTH(area) > 0")
+        areas = cur.fetchall()
 
-    # Close Connection
-    cur.close
+        # Get Municipality
+        result = cur.execute("SELECT DISTINCT municipality  from profiles where LENGTH(municipality ) > 0")
+        municipalities = cur.fetchall()
 
-    return render_template('profiles.html', profiles=profiles)
+        result = cur.execute("SELECT DISTINCT department from profiles where LENGTH(department) > 0")
+        departments = cur.fetchall()
+
+        # Close Connection
+        cur.close
+
+        return render_template('profiles.html', profiles=profiles, areas=areas, departments=departments,
+                               municipalities=municipalities)
+    elif request.method == 'POST':
+        return render_template('profiles.html')
+
+    error = "NO PERFILES"
+    return render_template('profiles.html', error=error)
 
 
 # @app.route('/show_map')
@@ -1064,6 +1081,37 @@ def load_municipalities():
         # mylist = nicadata.to_dict()
 
         return jsonify(mylist)
+
+    except OSError as err:
+        print("OS error: {0}".format(err))
+    except ValueError:
+        print("Unexpected error:", sys.exc_info()[0])
+    except:
+        print("Unexpected error:", sys.exc_info()[0])
+
+    return render_template('add_profile.html')
+
+
+@app.route('/filter_profiles', methods=['GET', 'POST'])
+def filter_profiles():
+    try:
+        municipality = request.args.get('mncplty', '', type=str)
+        department = request.args.get('dpt', '', type=str)
+        area = request.args.get('area', '', type=str)
+
+        # Create Cursor
+        cur = mysql.connection.cursor()
+
+        # Get Articles
+        result = cur.execute("SELECT * FROM profiles WHERE municipality = %s and area = %s and department = %s",
+                             (municipality, area, department))
+
+        myusers = cur.fetchall()
+
+        # Close Connection
+        cur.close
+
+        return jsonify(myusers)
 
     except OSError as err:
         print("OS error: {0}".format(err))
