@@ -1099,12 +1099,46 @@ def filter_profiles():
         department = request.args.get('dpt', '', type=str)
         area = request.args.get('area', '', type=str)
 
+        where_clause = ""
+        params = ""
+        inputparam = 0
+
+        if len(municipality) > 0 and municipality != "Municipio":
+            where_clause = " WHERE municipality  = %s "
+            params = "(municipality"
+            inputparam = municipality
+
+        if len(department) > 0 and department != "Departamento":
+            if len(where_clause) > 0:
+                where_clause = where_clause + " AND Department = %s"
+                inputparam = (municipality, department)
+            else:
+                where_clause = " WHERE Department  = %s "
+                inputparam = department
+
+        if len(area) > 0 and area != "Barrio/Colonia":
+            if len(where_clause) > 0:
+                where_clause = where_clause + " AND area = %s"
+
+                if len(department) > 0 and len(municipality) > 0:
+                    inputparam = (municipality, department, area)
+                elif len(department) == 0 and len(municipality) > 0:
+                    inputparam = (municipality, area)
+                elif len(department) > 0 and len(municipality) == 0:
+                    inputparam = (department, area)
+            else:
+                where_clause = " WHERE area  = %s "
+                inputparam = area
+
         # Create Cursor
         cur = mysql.connection.cursor()
 
         # Get Articles
-        result = cur.execute("SELECT * FROM profiles WHERE municipality = %s and area = %s and department = %s",
-                             (municipality, area, department))
+        result = cur.execute("SELECT * FROM profiles " + where_clause,
+                             inputparam)
+
+        # result = cur.execute("SELECT * FROM profiles WHERE municipality = %s and area = %s and department = %s",
+        #                      (municipality, area, department))
 
         myusers = cur.fetchall()
 
