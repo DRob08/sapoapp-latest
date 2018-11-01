@@ -8,7 +8,7 @@
     <div class="row align-items-center justify-content-center">
         <div class="col-md-2 pt-3">
             <div class="form-group ">
-                <select name="area" id="area " class="form-control">
+                <select name="area" id="area" class="form-control">
                     <option disabled selected hidden>Barrio/Colonia</option>
                     {% if areas %}
                     {% for area in areas %}
@@ -94,7 +94,7 @@
                         <div class="frontside">
                             <div class="card">
                                 <div class="card-body text-center">
-                                    <p><img class=" img-fluid" src="{{profile.imgpath}}" alt="card image"></p>
+                                    <p><img class="img-fluid" src="{{profile.imgpath}}" alt="card image"></p>
                                     <h4 class="card-title">{% if profile.middle_name: %} {{profile.name}}
                                         {{profile.middle_name}} {% else %} {{profile.name }}{% endif %} {% if
                                         profile.lastname_mother: %} {{profile.lastname}} {{profile.lastname_mother}} {%
