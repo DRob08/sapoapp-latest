@@ -573,8 +573,7 @@ def show_profile():
         # Close Connection
         cur.close
 
-        return render_template('profiles.html', profiles=profiles, areas=areas, departments=departments,
-                               municipalities=municipalities)
+        return render_template('profiles.html', profiles=profiles, areas=areas)
     elif request.method == 'POST':
         return render_template('profiles.html')
 
@@ -1100,8 +1099,7 @@ def filter_profiles():
         area = request.args.get('area', '', type=str)
 
         where_clause = ""
-        params = ""
-        inputparam = 0
+        inputparam = ""
 
         if len(municipality) > 0 and municipality != "Municipio":
             where_clause = " WHERE municipality  = %s "
