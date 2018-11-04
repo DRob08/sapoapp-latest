@@ -6,6 +6,62 @@
 <hr class="style13">
 <div class="container-fluid bg-light">
     <div class="row align-items-center justify-content-center">
+
+        <div class="col-md-2 pt-3">
+            <div class="form-group">
+                <!--<select name="department" id="department" class="form-control">
+                    <option disabled selected hidden>Departamento</option>
+
+                    {% if departments %}
+                    {% for department in departments %}
+                    <option>{{department.department}}</option>
+                    {% endfor %}
+
+                    {% endif %}
+                    &lt;!&ndash;   <option>BMW</option>
+                       <option>Audi</option>
+                       <option>Maruti</option>
+                       <option>Tesla</option> &ndash;&gt;
+                </select>-->
+
+                <select name="department" class="form-control" name="department" id="department">
+                    <option disabled selected hidden>Departamento</option>
+                    <option>Boaco</option>
+                    <option>Carazo</option>
+                    <option>Chinandega</option>
+                    <option>Estelí</option>
+                    <option>Granada</option>
+                    <option>Jinotega</option>
+                    <option>León</option>
+                    <option>Madriz</option>
+                    <option>Managua</option>
+                    <option>Matagalpa</option>
+                    <option>Nueva Segovia</option>
+                    <option>Rivas</option>
+                    <option>Río San Juan</option>
+                    <option>Costa Caribe Norte</option>
+                    <option>Costa Caribe Sur</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2 pt-3">
+            <div class="form-group">
+                <select name="municipality" id="municipality" class="form-control">
+                    <option disabled selected hidden>Municipio</option>
+
+                    <!--   {% if municipalities %}
+                       {% for municipality in municipalities %}
+                       <option>{{municipality.municipality}}</option>
+                       {% endfor %}
+
+                       {% endif %}-->
+                    <!--    <option>BMW</option>
+                       <option>Audi</option>
+                       <option>Maruti</option>
+                       <option>Tesla</option> -->
+                </select>
+            </div>
+        </div>
         <div class="col-md-2 pt-3">
             <div class="form-group ">
                 <select name="area" id="area" class="form-control">
@@ -20,42 +76,6 @@
                       <option>Audi</option>
                       <option>Maruti</option>
                       <option>Tesla</option>  -->
-                </select>
-            </div>
-        </div>
-        <div class="col-md-2 pt-3">
-            <div class="form-group">
-                <select name="department" id="department" class="form-control">
-                    <option disabled selected hidden>Departamento</option>
-
-                    {% if departments %}
-                    {% for department in departments %}
-                    <option>{{department.department}}</option>
-                    {% endfor %}
-
-                    {% endif %}
-                    <!--   <option>BMW</option>
-                       <option>Audi</option>
-                       <option>Maruti</option>
-                       <option>Tesla</option> -->
-                </select>
-            </div>
-        </div>
-        <div class="col-md-2 pt-3">
-            <div class="form-group">
-                <select name="municipality" id="municipality" class="form-control">
-                    <option disabled selected hidden>Municipio</option>
-
-                    {% if municipalities %}
-                    {% for municipality in municipalities %}
-                    <option>{{municipality.municipality}}</option>
-                    {% endfor %}
-
-                    {% endif %}
-                    <!--    <option>BMW</option>
-                       <option>Audi</option>
-                       <option>Maruti</option>
-                       <option>Tesla</option> -->
                 </select>
             </div>
         </div>
@@ -80,21 +100,21 @@
 <hr class="style13">
 
 <!-- Team -->
-<section id="team" class="pb-5">
+<section id="team" class="mb-5">
 
-    <div class="container">
-        <h5 class="section-title h1">SAPOS</h5>
-        <div class="row">
+    <div class="container" id="allpro">
+        <h5 id="myheader" class="section-title h1">SAPOS</h5>
+        <div class="row" id="profilerow">
 
             {% for profile in profiles %}
             <!-- Team member -->
-            <div class="col-xs-12 col-sm-6 col-md-4">
+            <div id="profile" name="profile" class="col-xs-12 col-sm-6 col-md-4">
                 <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                     <div class="mainflip">
                         <div class="frontside">
                             <div class="card">
                                 <div class="card-body text-center">
-                                    <p><img class="img-fluid" src="{{profile.imgpath}}" alt="card image"></p>
+                                    <p id="ppro"><img class="img-fluid" src="{{profile.imgpath}}" alt="card image"></p>
                                     <h4 class="card-title">{% if profile.middle_name: %} {{profile.name}}
                                         {{profile.middle_name}} {% else %} {{profile.name }}{% endif %} {% if
                                         profile.lastname_mother: %} {{profile.lastname}} {{profile.lastname_mother}} {%
@@ -106,10 +126,11 @@
                             </div>
                         </div>
                         <div class="backside">
-                            <div class="card">
-                                <div class="card-body text-center mt-4">
-                                    <h4 class="card-title">Sunlimetech</h4>
-                                    <p class="card-text">This is basic card with image on top, title, description and
+                            <div id="backcard" class="card">
+                                <div id="backcbody" class="card-body text-center mt-4">
+                                    <h4 id="backheader" class="card-title">Sunlimetech</h4>
+                                    <p id="pback" class="card-text">This is basic card with image on top, title,
+                                        description and
                                         button.This is basic card with image on top, title, description and button.This
                                         is basic card with image on top, title, description and button.</p>
                                     <ul class="list-inline">
@@ -146,7 +167,7 @@
 
     </div>
 
-    <div class="col-md-4 text-center">
+    <div class="col-md-4 text-center" id="buttons">
         <button id="singlebutton" name="singlebutton" class="btn btn-primary">Next Step!</button>
         <button id="load" type="button" class="btn btn-info">Load More</button>
     </div>
@@ -165,7 +186,165 @@
                 area:  $('#area option:selected').val()
             },
               function(data) {
+                if (!$.trim(data)){
+                    alert("What follows is blank: " + data);
+                    $('#profilerow').detach();
+                    $('#buttons').detach();
 
+                    $('#allpro').append($("<div id='profilerow'></div>").attr("class","row"));
+                    $('#profilerow').append($("<div id='profile' name='profile' ></div>").attr("class","col-xs-12 col-sm-6 col-md-4"));
+
+                    $('#profile').append($("<div></div>").attr("class","image-flip"));
+                    $( ".image-flip" ).attr("ontouchstart","this.classList.toggle('hover')");
+
+                    $( ".image-flip" ).append($("<div></div>").attr("class","mainflip"));
+
+                     // Start of Front end
+                    $( ".mainflip" ).append($("<div></div>").attr("class","frontside"));
+
+                    $( ".frontside" ).append($("<div></div>").attr("class","card"));
+
+                    $( ".card" ).append($("<div></div>").attr("class","card-body text-center"));
+
+                    $( ".card-body" ).append($("<p id='ppro'></p>"));
+
+                    $( "#ppro" ).append($("<img >").attr("class","img-fluid"));
+
+                    $( ".img-fluid" ).attr("alt","card image");
+
+                    $( ".img-fluid" ).attr("src","http://127.0.0.1:8888/content/uploads/2018/09/20/fb-profile-nomadroof.jpg");
+
+                    $( ".card-body" ).append($("<h4></h4>").attr("class","card-title").text("Daniel Ortega Savedra"));
+
+                    $( ".card-body" ).append($("<p></p>").attr("class","card-text").text("Granada"));
+
+                    $( ".card-body" ).append($("<a id='mybtn'></a>").attr("class","btn btn-primary btn-sm"));
+
+                    $( "#mybtn" ).attr("href","#");
+
+                    $( "#mybtn" ).append($("<i></i>").attr("class","fa fa-bug"));
+
+                    // Start of Backside
+
+                    $( ".mainflip" ).append($("<div></div>").attr("class","backside"));
+
+                    $( ".backside" ).append($("<div id='backcard'></div>").attr("class","card"));
+
+                    $( "#backcard" ).append($("<div id='backcbody'></div>").attr("class","card-body text-center mt-4"));
+
+                    $("#backcbody" ).append($("<h4 id='backheader'></h4>").attr("class","card-title").text("Sunlimetech"));
+
+                    $( "#backcbody" ).append($("<p id='pback'></p>").attr("class","card-text").text("This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button."));
+
+                    $( "#backcbody" ).append($("<ul></ul>").attr("class","list-inline"));
+
+                    $( ".list-inline" ).append($("<li id='liitemone'></li>").attr("class","list-inline-item"));
+
+                    $( "#liitemone" ).append($("<a></a>").attr("class","social-icon text-xs-center"));
+
+                    $( ".social-icon" ).attr("href","#");
+
+                    $( ".social-icon" ).attr("target","_blank");
+
+                    $( ".social-icon" ).append($("<i></i>").attr("class","fa fa-facebook"));
+
+                    //Other Icons
+
+                    $( ".list-inline" ).append($("<li id='twli'></li>").attr("class","list-inline-item"));
+
+                    $( "#twli" ).append($("<a id='tw'></a>").attr("class","social-icon text-xs-center"));
+
+                    $( "#tw" ).attr("href","#");
+
+                    $( "#tw" ).attr("target","_blank");
+
+                    $( "#tw" ).append($("<i></i>").attr("class","fa fa-twitter"));
+
+                    //3rd Icon
+
+                    $( ".list-inline" ).append($("<li id='gooli'></li>").attr("class","list-inline-item"));
+
+                    $( "#gooli" ).append($("<a id='goo'></a>").attr("class","social-icon text-xs-center"));
+
+                    $( "#goo" ).attr("href","#");
+
+                    $( "#goo" ).attr("target","_blank");
+
+                    $( "#goo" ).append($("<i></i>").attr("class","fa fa-google"));
+
+
+                }
+                else{
+                    alert("What follows is not blank: " + data);
+
+                    $('#profilerow').detach();
+
+                    $('#allpro').append($("<div id='profilerow'></div>").attr("class","row"));
+
+                    //var first_row = document.getElementById("profilerow");
+
+                    var count = 0;
+
+                    var profilevar = 'profile'
+                    var flipvar = 'flip'
+                    var mainflipvar = 'mainflip'
+                    var fsidevar = 'fside'
+                    var cardvar = 'card'
+                    var cbodyvar = 'cbody'
+                    var pprovar = 'ppro'
+                    var imgfluidvar = ''
+                    var mybtnvar = 'mybtn'
+
+                    for (var i = 0; i < data.length; i++ ) {
+                         <!--$('#municipality').append($("<option></option>").attr("value",data[i]).text(data[i]));-->
+                        count = i + 1;
+
+                        $('#profilerow').append($("<div id='profile" + count + "' name='profile' ></div>").attr("class","col-xs-12 col-sm-6 col-md-4"));
+                        profilevar = 'profile' +  count
+
+                        $('#'+profilevar).append($("<div id='flip" + count + "'></div>").attr("class","image-flip"));
+
+                        $( ".image-flip" ).attr("ontouchstart","this.classList.toggle('hover')");
+                        flipvar = 'flip' + count
+
+                        $( '#'+flipvar).append($("<div id='mainflip" + count + "'></div>").attr("class","mainflip"));
+                        mainflipvar = 'mainflip' + count
+
+                        // Start of Front end
+                        $( '#'+mainflipvar).append($("<div id='fside" + count + "' ></div>").attr("class","frontside"));
+                        fsidevar = 'fside' + count
+
+                        $( '#'+fsidevar).append($("<div id='card" + count + "'></div>").attr("class","card"));
+                        cardvar = 'card' + count
+
+                        $('#'+cardvar).append($("<div id='cbody" + count + "'></div>").attr("class","card-body text-center"));
+                        cbodyvar = 'cbody' + count
+
+                        $( '#'+cbodyvar ).append($("<p id='ppro" + count + "'></p>"));
+                        pprovar = 'ppro' + count
+
+                        $( '#'+pprovar ).append($("<img id='imgfluid" + count + "' >").attr("class","img-fluid"));
+
+                        $( ".img-fluid" ).attr("alt","card image");
+                        imgfluidvar = 'imgfluid' + count
+
+                        $( '#'+imgfluidvar  ).attr("src",data[i].imgpath);
+
+                        $( '#'+cbodyvar ).append($("<h4></h4>").attr("class","card-title").text(data[i].name));
+
+                        $( '#'+cbodyvar  ).append($("<p></p>").attr("class","card-text").text(data[i].department));
+
+                        $( '#'+cbodyvar).append($("<a id='mybtn" + count + "' ></a>").attr("class","btn btn-primary btn-sm"));
+                        mybtnvar = 'mybtn' + count
+
+                        $('#'+mybtnvar ).attr("href","#");
+
+                        $( '#'+mybtnvar).append($("<i></i>").attr("class","fa fa-bug"));
+
+
+
+                    }
+                }
 
             })
             .done(function() { console.log('getJSON request succeeded!'); })
@@ -173,9 +352,31 @@
 
     });
 
+
+     $('#department').on('change', function() {
+
+
+        $('#municipality')
+        .find('option')
+        .remove()
+        .end()
+        .append('<option value="None">Municipio</option>')
+        .val('whatever');
+
+
+            $.getJSON('/load_municipalities',{
+                dpt: $('#department').val()
+            },
+              function(data) {
+                for (var i = 0; i < data.length; i++ ) {
+                         $('#municipality').append($("<option></option>").attr("value",data[i]).text(data[i]));
+                    }
+
+            })
+            .done(function() { console.log('getJSON request succeeded!'); })
+            .fail(function(jqXHR, textStatus, errorThrown) { console.log('getJSON request failed! ' + textStatus); });
+    });
+
 </script>
 
 {% endblock %}
-
-
-
