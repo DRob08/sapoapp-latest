@@ -1,54 +1,89 @@
 <!DOCTYPE html>
-<html>
+{% extends 'layout.html'%}
+
+{% block body %}
 <head>
+    <title>Leaflet Cluster Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css"/>
+
+    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script>
+    <script type='text/javascript' src='http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js'></script>
+    <script type='text/javascript'
+            src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js'></script>
+
+
+    <style>
+    body {
+        padding: 0;
+        margin: 0;
+    }
+    html, body, #map {
+        height: 100%;
+        width: auto;
+    }
+
+    </style>
+
 
 </head>
+
+
 <body>
-<h1>Flask Google Maps Example</h1>
+<h1>Leaflet Cluster Example</h1>
+
+<p>Here's an interactive map indicating where airports and train stations are located around the world. The data comes
+    from <a href="http://openflights.org/data.html" target="_blank">OpenFlights.org</a>.
+
+<div id="map" style="height: 440px; border: 1px solid #AAA;" class="mb-4"></div>
 
 
-<h3> Example for different icons in multiple markers with infoboxes</h3>
-{{mapsf.html}}
+<script type='text/javascript' src='/static/js/marker.js'></script>
+<script type='text/javascript' src='/static/js/leaf-demo.js'></script>
+<script>
 
+
+    function loadsapos( jQuery ) {
+        console.log( "ON LOAD ready!" );
+
+          $.getJSON('/load_sapos',{
+
+            },
+              function(data) {
+                for (var i = 0; i < data.length; i++ ) {
+                         console.log( "test!" );
+                    var markerClusters = L.markerClusterGroup();
+
+                    var popup = data[i].name +  ' ' +  data[i].lastname +
+						  '<br/>' + data[i].area + ' ' + data[i].municipality +
+						  '<br/><b>ALIAS:</b> ' + data[i].alias +
+						  '<br/><b>CEDULA:</b> ' + data[i].cedula_id ;
+
+			        var m = L.marker( [data[i].latitude, data[i].longitude], {icon: myIcon} )
+							  .bindPopup( popup );
+
+			        markerClusters.addLayer( m );
+                  }
+
+                  map.addLayer( markerClusters );
+
+                  map.setView(new L.LatLng( 12.8691653, -85.1411896), 7);
+
+            })
+            .done(function() { console.log('getJSON request succeeded!'); })
+            .fail(function(jqXHR, textStatus, errorThrown) { console.log('getJSON request failed! ' + textStatus); });
+    }
+
+
+    $( window ).on( "load", loadsapos );
+
+
+
+</script>
 </body>
-</html>
-
-
-<!--<!DOCTYPE html>
-
-<html>
-<head>
-  <title>A Leaflet map!</title>
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
-  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-  <style>
-    #map{ width: 900px; height: 500px; }
-  </style>
-</head>
-<body>
-
-  <div id="map"></div>
-
-  <script>
-
-  &lt;!&ndash;// initialize the map
-  var map = L.map('map').setView([42.35, -71.08], 13);
-
-  // load a tile layer
-  L.tileLayer('http://tiles.mapc.org/basemap/{z}/{x}/{y}.png',
-    {
-      attribution: 'Tiles by <a href="http://mapc.org">MAPC</a>, Data by <a href="http://mass.gov/mgis">MassGIS</a>',
-      maxZoom: 17,
-      minZoom: 9
-    }).addTo(map);
-
-    // bike lanes
-  L.tileLayer('http://tiles.mapc.org/trailmap-onroad/{z}/{x}/{y}.png',
-  {
-    maxZoom: 17,
-    minZoom: 9
-  }).addTo(map);&ndash;&gt;
-
-  </script>
-</body>
-</html>-->
+{% endblock %}
