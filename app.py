@@ -1155,6 +1155,30 @@ def filter_profiles():
     return render_template('add_profile.html')
 
 
+@app.route('/show_map')
+def mapview():
+    return render_template('show_map.html')
+
+
+@app.route('/load_sapos', methods=['GET', 'POST'])
+def sapos_loader():
+    # Create Cursor
+    cur = mysql.connection.cursor()
+
+    # Get Articles
+    result = cur.execute("SELECT * FROM profiles WHERE latitude <> 0 and longitude <> 0")
+
+    # result = cur.execute("SELECT * FROM profiles WHERE municipality = %s and area = %s and department = %s",
+    #                      (municipality, area, department))
+
+    myusers = cur.fetchall()
+
+    # Close Connection
+    cur.close
+
+    return jsonify(myusers)
+
+
 if __name__ == '__main__':
     app.secret_key = 'secret123'
     app.run(debug=True)
