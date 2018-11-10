@@ -64,8 +64,8 @@
 						  '<br/><b>ALIAS:</b> ' + data[i].alias +
 						  '<br/><b>CEDULA:</b> ' + data[i].cedula_id ;
 
-			        var m = L.marker( [data[i].latitude, data[i].longitude], {icon: myIcon} )
-							  .bindPopup( popup );
+			        var m = L.marker( [data[i].latitude, data[i].longitude], {icon: myIcon} ).on('click', function() {
+                                            centerLeafletMapOnMarker(map, this);}).bindPopup( popup );
 
 			        markerClusters.addLayer( m );
                   }
@@ -81,6 +81,12 @@
 
 
     $( window ).on( "load", loadsapos );
+
+    function centerLeafletMapOnMarker(map, marker) {
+        var latLngs = [ marker.getLatLng() ];
+        var markerBounds = L.latLngBounds(latLngs);
+        map.fitBounds(markerBounds);
+    }
 
 
 
