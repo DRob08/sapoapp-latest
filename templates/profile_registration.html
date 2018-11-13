@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+{% extends 'layout.html'%}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+{% block body %}
+
+<section class="testimonial py-5" id="testimonial">
+    <div class="container">
+        <div class="row ">
+            <div class="col-md-4 py-5 bg-primary text-white text-center ">
+                <div class=" ">
+                    <div class="card-body">
+                        <img src="http://www.ansonika.com/mavia/img/registration_bg.svg" style="width:30%">
+                        <h2 class="py-3">Reportar</h2>
+                        <p>Tation argumentum et usu, dicit viderer evertitur te has. Eu dictas concludaturque usu,
+                            facete detracto patrioque an per, lucilius pertinacia eu vel.
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 py-5 border">
+                <h4 class="pb-4">Por favor llenar las casillas</h4>
+                <form method="POST" action="" enctype="multipart/form-data">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input id="name" name="name" placeholder="Nombre" class="form-control" type="text" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input name="secondname" type="text" class="form-control" id="secondname"
+                                   placeholder="2do Nombre">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input name="lastname" type="text" class="form-control" id="lastname"
+                                   placeholder="Apellido" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input name="secondlname" type="text" class="form-control" id="secondlname"
+                                   placeholder=" 2do Apellido"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input name="cedula" type="text" class="form-control" id="cedula" placeholder="# de Cedula"
+                                   required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input name="alias" type="text" class="form-control" id="alias"
+                                   placeholder="Alias">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <div class="custom-file" id="customFile" lang="es">
+                                <input name="profile_img" type="file" class="custom-file-input" id="profile_img"
+                                       aria-describedby="fileHelp">
+                                <label class="custom-file-label" for="profile_img">
+                                    Foto Perfil
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="input-group mb-1">
+                                <input name="datepicker" class="form-control" data-date-format="dd/mm/yyyy"
+                                       id="datepicker" placeholder="Fecha de Nac.">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><span class="fa fa-calendar"
+                                                                         style="color: black"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <input name="address" type="text" class="form-control" id="address" placeholder="Direccion">
+                        </div>
+                        <!--<div class="form-group col-md-6">-->
+                        <!--<input name="alias" type="text" class="form-control" id="alias"-->
+                        <!--placeholder="Alias">-->
+                        <!--</div>-->
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input name="area" type="text" class="form-control" id="area" placeholder="Barrio/Colonia">
+                        </div>
+                        <div class="form-group col-md-6">
+
+                            <!--<select id="inputState" class="form-control">-->
+                            <!--<option selected>Choose ...</option>-->
+                            <!--<option> New Buyer</option>-->
+                            <!--<option> Auction</option>-->
+                            <!--<option> Complaint</option>-->
+                            <!--<option> Feedback</option>-->
+                            <!--</select>-->
+
+                            <input name="phone" type="text" class="form-control" id="phone" placeholder="Mobil">
+                        </div>
+                        <!--<div class="form-group col-md-12">-->
+                        <!--<textarea id="comment" name="comment" cols="40" rows="5" class="form-control"></textarea>-->
+                        <!--</div>-->
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <select name="department" class="custom-select" name="department" id="department">
+                                <option selected>Departamento</option>
+                                <option>Boaco</option>
+                                <option>Carazo</option>
+                                <option>Chinandega</option>
+                                <option>Estelí</option>
+                                <option>Granada</option>
+                                <option>Jinotega</option>
+                                <option>León</option>
+                                <option>Madriz</option>
+                                <option>Managua</option>
+                                <option>Matagalpa</option>
+                                <option>Nueva Segovia</option>
+                                <option>Rivas</option>
+                                <option>Río San Juan</option>
+                                <option>Costa Caribe Norte</option>
+                                <option>Costa Caribe Sur</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <select name="municipality" class="custom-select" name="municipality" id="municipality">
+
+                                <option selected>Municipio</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="col-sm-6">
+
+                            <input name="work" type="text" class="form-control" id="work" placeholder="Empleo">
+                        </div>
+
+                        <div class="col-sm-6">
+
+                            <input name="workphone" type="text" class="form-control" id="workphone"
+                                   placeholder="Telefono Empleo">
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Genero:</label>
+                            <!-- Default unchecked -->
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="female"
+                                       name="defaultExampleRadios" value="F">
+                                <label class="custom-control-label" for="female">Femenino</label>
+                            </div>
+
+                            <!-- Default checked -->
+                            <div class="custom-control custom-radio">
+
+                                <input type="radio" class="custom-control-input" id="male"
+                                       name="defaultExampleRadios" value="M">
+                                <label class="custom-control-label" for="male">Masculino</label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+
+                        </div>
+                        <div class="form-group col-md-12">
+                            <textarea placeholder="Mas detalles sobre las actividades de este sujeto" id="comment"
+                                      name="comment" cols="40" rows="5" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-row">
+                         <div class="form-group col-md-6">
+                            <div class="custom-file" id="customFile" lang="es">
+                                 <input name="profile_img" type="file" class="custom-file-input" id="profile_img"
+                                        aria-describedby="fileHelp">
+                                 <label class="custom-file-label" for="profile_img">
+                                     Foto Perfil
+                                 </label>
+                             </div>
+                         </div>
+                         <div class="form-group col-md-6">
+                             <div class="input-group mb-1">
+                              <input name="datepicker" class="form-control" data-date-format="dd/mm/yyyy" id="datepicker" placeholder="Fecha de Nac.">
+                             <div class="input-group-append">
+                                 <span class="input-group-text"><span class="fa fa-calendar" style="color: black"></span></span>
+                             </div>
+                             </div>
+                         </div>
+                     </div>-->
+
+
+                    <!--<div class="form-row">-->
+                    <!--<div class="form-group">-->
+                    <!--<div class="form-group">-->
+                    <!--<div class="form-check">-->
+                    <!--<input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>-->
+                    <!--<label class="form-check-label" for="invalidCheck2">-->
+                    <!--<small>By clicking Submit, you agree to our Terms & Conditions, Visitor Agreement and Privacy Policy.</small>-->
+                    <!--</label>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <div class="form-row">
+                        <button class="btn btn-primary btn-lg" type="submit">Agregar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.es.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css"
+      rel="stylesheet"/>
+<script>
+
+    $('#datepicker').datepicker({
+        weekStart: 1,
+        language: "es",
+        autoclose: true,
+        todayHighlight: true,
+    });
+
+
+    $('.custom-file-input').on('change', function() {
+        let fileName = $(this).val().split('\\').pop();
+        let label = $(this).siblings('.custom-file-label');
+
+        if (label.data('default-title') === undefined) {
+            label.data('default-title', label.html());
+        }
+
+        if (fileName === '') {
+            label.removeClass("selected").html(label.data('default-title'));
+        } else {
+            label.addClass("selected").html(fileName);
+        }
+    });
+
+
+       $('#department').on('change', function() {
+
+
+        $('#municipality')
+        .find('option')
+        .remove()
+        .end()
+        .append('<option value="None">Cual Municipio..?</option>')
+        .val('whatever');
+
+
+            $.getJSON('/load_municipalities',{
+                dpt: $('#department').val()
+            },
+              function(data) {
+                for (var i = 0; i < data.length; i++ ) {
+                         $('#municipality').append($("<option></option>").attr("value",data[i]).text(data[i]));
+                    }
+
+            })
+            .done(function() { console.log('getJSON request succeeded!'); })
+            .fail(function(jqXHR, textStatus, errorThrown) { console.log('getJSON request failed! ' + textStatus); });
+    });
+
+
+
+</script>
+
+{% endblock %}
