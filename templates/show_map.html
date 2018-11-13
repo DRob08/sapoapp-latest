@@ -55,12 +55,14 @@
 
             },
               function(data) {
+                 var markerClusters = L.markerClusterGroup();
                 for (var i = 0; i < data.length; i++ ) {
                          console.log( "test!" );
-                    var markerClusters = L.markerClusterGroup();
+
 
                     var popup = data[i].name +  ' ' +  data[i].lastname +
 						  '<br/>' + data[i].area + ' ' + data[i].municipality +
+						  '<br/><b>DEPARTAMENTO:</b> ' + data[i].department +
 						  '<br/><b>ALIAS:</b> ' + data[i].alias +
 						  '<br/><b>CEDULA:</b> ' + data[i].cedula_id ;
 
