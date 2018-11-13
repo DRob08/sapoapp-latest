@@ -199,37 +199,128 @@ def insert_profile(name, midlename, lastname, lastnamemom, dob, cedula, imgpath,
         cur.close()
 
         return True
-
-    # except my.DataError as e:
-    #     print("DataError")
-    #     print(e)
-    #
-    # except my.InternalError as e:
-    #     print("InternalError")
-    #     print(e)
-    #
-    # except my.IntegrityError as e:
-    #     print("IntegrityError")
-    #     print(e)
-    #
-    # except my.OperationalError as e:
-    #     print("OperationalError")
-    #     print(e)
-    #
-    # except my.NotSupportedError as e:
-    #     print("NotSupportedError")
-    #     print(e)
-    #
-    # except my.ProgrammingError as e:
-    #     print("ProgrammingError")
-    #     print(e)
-
     except:
         print("Unknown error occurred")
         return False
 
     finally:
         cur.close()
+
+
+@app.route('/add_new_profile', methods=['GET', 'POST'])
+def add_new_profile():
+    try:
+        if request.method == 'POST':
+            name = request.form['name']
+            middle_name = request.form['secondname']
+            lastname = request.form['lastname']
+            secondlname = request.form['secondlname']
+            dob = request.form['datepicker']
+            cedula = request.form['cedula']
+            phone = request.form['phone']
+            address = request.form['address']
+            department = request.form['department']
+            municipality = request.form['municipality']
+            area = request.form['area']
+            alias = request.form['alias']
+            work = request.form['work']
+            # work_address = request.form['work_address']
+            allegations = request.form['comment']
+            gender = request.form['defaultExampleRadios']
+
+            if len(area) == 0:
+                full_address = municipality + ", " + department + ", Nicaragua"
+            else:
+                full_address = area + " " + municipality + ", " + department + ", Nicaragua"
+
+            # Ensure, before we start, that the API key is ok/valid, and internet access is ok
+            # test_result = get_google_results("London, England", API_KEY, RETURN_FULL_RESULTS)
+            # if (test_result['status'] != 'OK') or (test_result['formatted_address'] != 'London, UK'):
+            #     logger.warning("There was an error when testing the Google Geocoder.")
+            #     raise ConnectionError('Problem with test results from Google Geocode - '
+            #                           'check your API key and internet connection.')
+
+            # location = geolocator.geocode(full_address)
+
+            try:
+                # geocode_result = get_google_results(full_address, API_KEY, return_full_response=RETURN_FULL_RESULTS)
+
+                location = geolocator.geocode(full_address)
+
+                if location:
+                    latitude, longitude = location.latitude, location.longitude
+                else:
+                    latitude, longitude = 0.0, 0.0
+                    error = "No Address Found "
+                    render_template('add_profile.html', error=error)
+
+            except Exception as e:
+                logger.exception(e)
+                logger.error("Major error with {}".format(address))
+                logger.error("Skipping!")
+                geocoded = True
+
+            # if geocode_result['status'] != 'OK':
+            #     logger.warning("Error geocoding {}: {}".format(address, geocode_result['status']))
+            #     logger.debug("Geocoded: {}: {}".format(address, geocode_result['status']))
+            #     geocoded = True
+
+            f = request.files['profile_img']
+            filename = secure_filename(f.filename)
+
+            # format_str = '%m/%d/%Y'  # The format
+            format_str = '%d/%m/%Y'  # The format
+            dob_obj = datetime.strptime(dob, format_str)
+
+            today_date = date.today()
+            today_path = app.config['profile-images'] + '/' + today_date.strftime("%Y/%m/%d")
+
+            local_host_path = 'http://127.0.0.1:8888/content/uploads/' + today_date.strftime("%Y/%m/%d")
+
+            if not os.path.exists(today_path):
+                os.makedirs(today_path)
+                f.save(os.path.join(today_path, filename))
+            else:
+                if os.path.isfile(today_path + '/' + filename):
+
+                    while os.path.isfile(today_path + '/' + filename):
+                        filename = increment_filename(filename)
+
+                    f.save(os.path.join(today_path, filename))
+                else:
+                    f.save(os.path.join(today_path, filename))
+
+            resize_and_crop(today_path + '/' + filename, today_path + '/' + filename, (200, 200), 'middle')
+
+            # img_path = today_path + '/' + filename
+            img_path = local_host_path + '/' + filename
+
+            if insert_profile(name, middle_name, lastname, secondlname, dob_obj, cedula, img_path, phone, address,
+                              department,
+                              municipality, area, work, alias, '', allegations, latitude, longitude):
+
+                # Create Cursor
+                cur = mysql.connection.cursor()
+
+                # Get Articles
+                cur.execute("SELECT * from profiles ORDER BY id DESC LIMIT 1")
+
+                profile = cur.fetchone()
+
+                # Close Connection
+                cur.close
+                return render_template('profile.html', profile=profile)
+            else:
+                error = 'Error tratando de insertar nuevo perfil'
+
+                render_template('profile_registration.html', error=error)
+    except ValueError:
+        print("Could not convert data to an integer.")
+    except:
+        print("Unexpected error:", sys.exc_info()[0])
+        raise
+
+    return render_template('profile_registration.html')
 
 
 @app.route('/add_profile', methods=['GET', 'POST'])
@@ -579,95 +670,6 @@ def show_profile():
 
     error = "NO PERFILES"
     return render_template('profiles.html', error=error)
-
-
-# @app.route('/show_map')
-# def mapview():
-
-# creating a map in the view
-    # mymap =  Map(
-    #     identifier="catsmap",
-    #     lat=12.335542,
-    #     lng=-84.919941,
-    #     zoom=9,
-    #     maptype="ROADMAP",
-    #     fit_markers_to_bounds=True,
-    #     markers=[
-    #         {
-    #             'icon': 'http://127.0.0.1:8888/content/uploads/2018/09/20/sapo-face-logo-30x30.png',
-    #             'lat':  12.335542,
-    #             'lng':  -84.919941,
-    #             'infobox': "<img src='cat1.jpg' />"
-    #         },
-    #         {
-    #             'icon': 'http://127.0.0.1:8888/content/uploads/2018/09/20/sapo-face-logo-30x30.png',
-    #             'lat': 12.335542,
-    #             'lng': -86.251389,
-    #             'infobox': "<img src='cat2.jpg' />"
-    #         },
-    #         {
-    #             'icon': 'http://127.0.0.1:8888/content/uploads/2018/09/20/sapo-face-logo-30x30.png',
-    #             'lat': 12.335542,
-    #             'lng': -84.919941,
-    #             'infobox': "<img src='cat3.jpg' />"
-    #         }
-    #     ]
-    # )
-    # sndmap = Map(
-    #     identifier="sndmap",
-    #     lat=37.4419,
-    #     lng=-122.1419,
-    #     markers=[
-    #       {
-    #          'icon': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-    #          'lat': 37.4419,
-    #          'lng': -122.1419,
-    #          'infobox': "<b>Hello World</b>"
-    #       },
-    #       {
-    #          'icon': 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-    #          'lat': 37.4300,
-    #          'lng': -122.1400,
-    #          'infobox': "<b>Hello World from other place</b>"
-    #       }
-    #     ]
-    # )
-    #
-    # return render_template('show_map.html', mymap=mymap, sndmap=sndmap)
-# SF_COORDINATES = (37.76, -122.45)
-#
-# firedata = pd.read_csv('/Users/DRob/PycharmProjects/myflaskapp/Fire_Incidents.csv')
-#
-# firedata = firedata[pd.notnull(firedata['Location']) & pd.notnull(firedata['Address'])]
-#
-# # for speed purposes
-# MAX_RECORDS = 1000
-#
-# # create empty map zoomed in on San Francisco
-# mymap = folium.Map(location=SF_COORDINATES, zoom_start=12)
-#
-# marker_cluster = MarkerCluster().add_to(mymap)
-#
-# # add a marker for every record in the filtered data, use a clustered view
-# # for each in firedata[0:MAX_RECORDS].iterrows():
-# #     s = each['Location']
-# #     folium.Marker(
-# #         [each['location']],
-# #         clustered_marker=True).add_to(mymap)
-#
-# for i in range(0, MAX_RECORDS):
-#     latlong = firedata.iloc[i]['Location']
-#
-#     if latlong:
-#         lat, lng = map(float, latlong.strip('()').split(','))
-#
-#         # folium.Marker([lat, lng], popup=firedata.iloc[i]['Address']).add_to(mymap)
-#         folium.Marker([lat, lng], popup=firedata.iloc[i]['Address']).add_to(marker_cluster)
-#
-# mymap.save('mapsf.html')
-#
-# return mymap.get_root().render()
-
 
 # Single Article
 @app.route('/article/<string:id>/')
@@ -1101,10 +1103,10 @@ def filter_profiles():
         where_clause = ""
         inputparam = ""
 
-        if len(municipality) > 0 and municipality != "Municipio":
+        if len(municipality) > 0 and (municipality != "Municipio" and municipality != "None"):
             where_clause = " WHERE municipality  = %s "
             params = "(municipality"
-            inputparam = municipality
+            inputparam = municipality,
 
         if len(department) > 0 and department != "Departamento":
             if len(where_clause) > 0:
@@ -1112,7 +1114,7 @@ def filter_profiles():
                 inputparam = (municipality, department)
             else:
                 where_clause = " WHERE Department  = %s "
-                inputparam = department
+                inputparam = department,
 
         if len(area) > 0 and area != "Barrio/Colonia":
             if len(where_clause) > 0:
@@ -1125,8 +1127,8 @@ def filter_profiles():
                 elif len(department) > 0 and len(municipality) == 0:
                     inputparam = (department, area)
             else:
-                where_clause = " WHERE area  = %s "
-                inputparam = area
+                where_clause = " WHERE area  = %s"
+                inputparam = area,
 
         # Create Cursor
         cur = mysql.connection.cursor()
