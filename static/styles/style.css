@@ -1775,6 +1775,11 @@ section .section-title {
     color: #007bff;
 }
 
+.leaflet-popup-content {
+
+    color: black;
+}
+
 
 
 
