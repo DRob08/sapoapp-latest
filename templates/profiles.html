@@ -187,11 +187,30 @@
             },
               function(data) {
                 if (!$.trim(data)){
-                    alert("What follows is blank: " + data);
+                    //alert("What follows is blank: " + data);
+
                     $('#profilerow').detach();
                     $('#buttons').detach();
 
-                    $('#allpro').append($("<div id='profilerow'></div>").attr("class","row"));
+                   // $('#allpro').append($("<div id='profilerow'><h5 id='myheader' class='section-title h1'>NO RECOURDS FOUND</h5></div>").attr("class","row"));
+
+                   $('#allpro').append($("<div id='profilerow'></div>").attr("class","row"));
+
+                  /* $('#profilerow').append($("<img src='/static/images/frog-face-200.png' alt='Cinque Terre'> ").attr("class","rounded"));
+                   $('#profilerow').append($("<h6 id='myheader'>No se encontrarón SAPOS</h6>").attr("class","section-title h1")); */
+
+                   $('#profilerow').append($("<div></div>").attr("class","col"));
+                   $('#profilerow').append($("<div id='divcenter'></div>").attr("class","col"));
+                   $('#divcenter').append($("<h6 id='myheader'>No se encontrarón SAPOS</h6>").attr("class","section-title h1"));
+                   $('#divcenter').append($("<img src='/static/images/frog-face-200.png' alt='Cinque Terre'> ").attr("class","rounded"));
+
+                   $('#profilerow').append($("<div></div>").attr("class","col"));
+
+
+
+
+
+                   /* $('#allpro').append($("<div id='profilerow'></div>").attr("class","row"));
                     $('#profilerow').append($("<div id='profile' name='profile' ></div>").attr("class","col-xs-12 col-sm-6 col-md-4"));
 
                     $('#profile').append($("<div></div>").attr("class","image-flip"));
@@ -270,12 +289,12 @@
 
                     $( "#goo" ).attr("target","_blank");
 
-                    $( "#goo" ).append($("<i></i>").attr("class","fa fa-google"));
+                    $( "#goo" ).append($("<i></i>").attr("class","fa fa-google")); */
 
 
                 }
                 else{
-                    alert("What follows is not blank: " + data);
+                   // alert("What follows is not blank: " + data);
 
                     $('#profilerow').detach();
 
