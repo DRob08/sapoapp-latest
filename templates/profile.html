@@ -1,27 +1,92 @@
 <!DOCTYPE html>
 {% extends 'layout.html'%}
+<head>
+    <style>
+    .modal-contents {
+	position: relative;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	width: 100%;
+	pointer-events: auto;
+	background-color: #f8d7da;
+	background-clip: padding-box;
+	border: 1px solid rgba(0,0,0,.2);
+	border-radius: .3rem;
+	outline: 0;
+}
+
+
+
+    </style>
+
+</head>
+
 
 {% block body %}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content alert alert-danger">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Zona en construcción
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="user-profile-2" class="user-profile">
     <div class="tabbable">
 
 
+        <!--    <ul class="nav nav-tabs md-tabs nav-justified indigo" role="tablist">
+               <li class="nav-item">
+                   <a class="nav-link active" data-toggle="tab" href="#home" role="tab"><i
+                           class="orange ace-icon fa fa-user bigger-120"></i> Perfil</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" data-toggle="tab" href="#feed" role="tab"><i
+                           class="orange ace-icon fa fa-rss bigger-120"></i> Actividades </a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" data-toggle="tab" href="#friends" role="tab"><i
+                           class="orange ace-icon fa fa-users bigger-120"></i> Socios </a>
+               </li>
+
+               <li class="nav-item">
+                   <a class="nav-link" data-toggle="tab" href="#friends" role="tab"><i
+                           class="orange ace-icon fa fa-gavel bigger-120"></i> Delitos </a>
+               </li>
+           </ul> -->
+
         <ul class="nav nav-tabs md-tabs nav-justified indigo" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#home" role="tab"><i
+                <a class="nav-link active" data-toggle="modal" data-target="#exampleModal" href="#home" role="tab"><i
                         class="orange ace-icon fa fa-user bigger-120"></i> Perfil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#feed" role="tab"><i
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#feed" role="tab"><i
                         class="orange ace-icon fa fa-rss bigger-120"></i> Actividades </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#friends" role="tab"><i
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#friends" role="tab"><i
                         class="orange ace-icon fa fa-users bigger-120"></i> Socios </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#friends" role="tab"><i
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#friends" role="tab"><i
                         class="orange ace-icon fa fa-gavel bigger-120"></i> Delitos </a>
             </li>
         </ul>
@@ -42,12 +107,12 @@
 
                         <a href="#" class="btn btn-sm btn-block btn-success">
                             <i class="ace-icon fa fa-plus-circle bigger-120"></i>
-                            <span class="bigger-110">Add as a friend</span>
+                            <span class="bigger-110">Editar Perfil</span>
                         </a>
 
                         <a href="#" class="btn btn-sm btn-block btn-primary">
                             <i class="ace-icon fa fa-envelope-o bigger-110"></i>
-                            <span class="bigger-110">Send a message</span>
+                            <span class="bigger-110">Contactar Admin</span>
                         </a>
                     </div><!-- /.col -->
 
@@ -72,7 +137,7 @@
 
                                 <div class="profile-info-value">
                                     <i class="fa fa-map-marker light-orange bigger-110"></i>
-                                    <span>{{profile.address}}</span>
+                                    <span>{{profile.area +  " " + profile.address }}</span>
 
                                 </div>
                             </div>
@@ -130,7 +195,7 @@
                                 <div class="profile-info-name"> Website :</div>
 
                                 <div class="profile-info-value">
-                                    <a class="two" href="#" target="_blank">www.alexdoe.com</a>
+                                    <a class="two" href="#" target="_blank">www.sapos.com</a>
                                 </div>
                             </div>
 
@@ -140,7 +205,7 @@
                                 </div>
 
                                 <div class="profile-info-value">
-                                    <a class="two" href="#">Find me on Facebook</a>
+                                    <a class="two" href="#">Perfil de Facebook</a>
                                 </div>
                             </div>
 
@@ -150,7 +215,7 @@
                                 </div>
 
                                 <div class="profile-info-value">
-                                    <a class="two" href="#">Follow me on Twitter</a>
+                                    <a class="two" href="#">Perfil en Twitter</a>
                                 </div>
                             </div>
                         </div>
@@ -172,20 +237,9 @@
                             <div class="widget-body">
                                 <div class="widget-main">
                                     <p>
-                                        My job is mostly lorem ipsuming and dolor sit ameting as long as consectetur
-                                        adipiscing elit.
+                                        {{profile.allegations_details}}
                                     </p>
-                                    <p>
-                                        Sometimes quisque commodo massa gets in the way and sed ipsum porttitor
-                                        facilisis.
-                                    </p>
-                                    <p>
-                                        The best thing about my job is that vestibulum id ligula porta felis euismod and
-                                        nullam quis risus eget urna mollis ornare.
-                                    </p>
-                                    <p>
-                                        Thanks for visiting my profile.
-                                    </p>
+
                                 </div>
                             </div>
                         </div>
@@ -866,5 +920,6 @@
         </div>
     </div>
 </div>
+
 
 {% endblock %}
