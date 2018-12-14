@@ -1,12 +1,13 @@
 <!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  /static/images/sapo-face-logo-30x30.png
+-->
 <!------ Include the above in your HEAD tag ---------->
 
 <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">SAPOFACE
-        <img src="http://127.0.0.1:8888/content/uploads/2018/09/20/sapo-face-logo-30x30.png" alt="">
+    <a class="navbar-brand" href="/">DEMOAPP
+        <img src="/static/images/logo-app-trans.png" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,7 +24,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/add_profile">
+                <a class="nav-link" href="/add_new_profile">
                     <i class="fa fa-id-card-o">
 
                     </i>
@@ -58,17 +59,17 @@
                 <a class="nav-link" href="/logout">Logout</a>
             </li>
             {% else %}
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="/registration">Registrate</a>
+            </li> -->
             <li class="nav-item">
-                <a class="nav-link" href="/registration">Register</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/signin">Log In</a>
+                <a class="nav-link" href="/signin">Iniciar sesión</a>
             </li>
             {% endif %}
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Buscar">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
         </form>
     </div>
 </nav>
