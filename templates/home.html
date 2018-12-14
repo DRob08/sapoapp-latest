@@ -1,17 +1,90 @@
 <!DOCTYPE html>
-{% extends 'layout.html'%}
-
+{% extends 'layout-parent.html'%}
 {% block body %}
-<div class="jumbotron text-center">
-    <h1> Welcome to the Nomadroof World</h1>
-    <p class="lead"> This application is built for personal use using python anf flask. Nomadroof </p>
 
-    {% if session.logged_in == NULL %}
-    <a href="/registration" class="btn btn-primary btn-lg">Register</a>
-    <a href="/signin" class="btn btn-success btn-lg">Login</a>
-    {% endif %}
+<head>
+    <style>
+.jumbotron {
+    background: url('/static/images/nica-flag.jpg') no-repeat center center fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   background-size: cover;
+   -o-background-size: cover;
+   color:white!important;
+
+}
+
+@include media-breakpoint-up(xs) {
+  html {
+    font-size: 1.4rem;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  html {
+    font-size: 1.3rem;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 1.5rem;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  html {
+    font-size: 1.7rem;
+  }
+}
+
+.lead {
+
+   color:white!important;
+}
+
+    </style>
+</head>
+
+<div class="jumbotron">
+    <h1 class="display-1">Ni Perdon, Ni Olvido</h1>
+    <h4 class="lead">#SOSNICARAGUA</h4>
+    <hr class="my-4">
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="/show_map" role="button">Localización</a>
+    </p>
 </div>
 
+
+<!-- <section class="bgimage">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h5>Prohibido Olvidar!</h5>
+        <p><strong>#SOSNICARAGUA</strong></p>
+        <p><a href="#" class="btn btn-primary btn-large">Reportar »</a></p>
+      </div>
+    </div>
+  </div>
+</section>-->
+
+<div class="container">
+    <hr class="style13">
+
+    <div class="jumbotron text-center">
+        <!-- <h1> Welcome to the Nomadroof World</h1>
+         <p class="lead"> This application is built for personal use using python anf flask. Nomadroof </p> -->
+
+        {% if session.logged_in == NULL %}
+        <!--  <a href="/registration" class="btn btn-primary btn-lg">Register</a>
+          <a href="/signin" class="btn btn-success btn-lg">Login</a> -->
+
+        {% endif %}
+</div>
+    <hr class="style13">
+</div>
+
+
 {% endblock %}
-</html>
+
 
