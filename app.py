@@ -1245,7 +1245,11 @@ def sapos_loader():
 
     # Get Articles
     result = cur.execute(
-        "SELECT *, DATE_FORMAT(dob,'%d/%m/%Y') AS fecha_nac, CONCAT_WS(' ',CASE name WHEN '' THEN NULL ELSE name END, CASE middle_name WHEN '' THEN NULL ELSE SUBSTRING(middle_name,1,1) END,CASE lastname WHEN '' THEN NULL ELSE lastname END,CASE lastname_mother WHEN '' THEN NULL ELSE lastname_mother END) as fullname FROM profiles WHERE latitude <> 0 and longitude <> 0")
+        "SELECT *, DATE_FORMAT(dob,'%d/%m/%Y') AS fecha_nac, CONCAT_WS(' ',CASE name WHEN '' THEN NULL ELSE name END, "
+        "CASE middle_name WHEN '' THEN NULL ELSE SUBSTRING(middle_name,1,1) END,"
+        "CASE lastname WHEN '' THEN NULL ELSE lastname END,"
+        "CASE lastname_mother WHEN '' THEN NULL ELSE lastname_mother END) as fullname "
+        "FROM profiles WHERE latitude <> 0 and longitude <> 0")
 
     # result = cur.execute("SELECT * FROM profiles WHERE municipality = %s and area = %s and department = %s",
     #                      (municipality, area, department))
