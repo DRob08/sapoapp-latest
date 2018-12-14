@@ -1,32 +1,254 @@
 <!DOCTYPE html>
-{% extends 'layout.html'%}
+{% extends 'layout-parent.html'%}
 
 {% block body %}
 <head>
     <title>Leaflet Cluster Example</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
-    <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css"/>
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
+          integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet-src.js"
+            integrity="sha512-WXoSHqw/t26DszhdMhOXOkI7qCiv5QWXhH9R7CgvgZMHz1ImlkVQ3uNsiQKu5wwbbxtPzFXd1hK4tzno2VqhpA=="
+            crossorigin=""></script>
+
+    <!--<link rel="stylesheet" href="screen.css" />-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"/>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster-src.js"></script>
+
+    <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css"/>
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script>
-    <script type='text/javascript' src='http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js'></script>
-    <script type='text/javascript'
-            src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js'></script>
 
 
     <style>
-    body {
-        padding: 0;
-        margin: 0;
-    }
-    html, body, #map {
-        height: 100%;
-        width: auto;
-    }
+
+
+
+
+    .custompopup .leaflet-popup-content-wrapper {
+      background:#2c3e50;
+      color:#fff!important;
+
+     }
+    .custompopup .leaflet-popup-content-wrapper a {
+        color:rgba(255,255,255,0.5);
+     }
+    .custompopup .leaflet-popup-tip-container {
+          width:30px;
+          height:15px;
+      }
+
+     .custompopup .leaflet-popup-content {
+        color: white;
+     }
+
+
+
+
+        .custompopup .leaflet-popup {
+            margin-right: 17px;
+        }
+
+
+      .custompopup .leaflet-popup-content {
+            max-width: 300px;
+            height: 100px;
+            margin-right: 17px;
+            overflow:  auto;
+        }
+
+
+
+ body {
+    padding: 0;
+    margin: 0;
+}
+
+html, body, #map {
+    height: 100%;
+    font-size: 1rem;
+}
+
+.lorem {
+    font-style: italic;
+    color: #ff7433;
+}
+
+/* Sidebar CSS  2000 */
+.leaflet-sidebar {
+  position: absolute;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px;
+  z-index: 2000; }
+  .leaflet-sidebar.left {
+    left: -500px;
+    transition: left 0.5s, width 0.5s;
+    padding-right: 0; }
+    .leaflet-sidebar.left.visible {
+      left: 0; }
+  .leaflet-sidebar.right {
+    right: -500px;
+    transition: right 0.5s, width 0.5s;
+    padding-left: 0; }
+    .leaflet-sidebar.right.visible {
+      right: 0; }
+  .leaflet-sidebar > .leaflet-control {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 8px 24px;
+    font-size: 1.1em;
+    background:#2c3e50;
+    box-shadow: 0 1px 7px rgba(0, 0, 0, 0.65);
+    -webkit-border-radius: 4px;
+    border-radius: 4px; }
+    .leaflet-touch .leaflet-sidebar > .leaflet-control {
+      box-shadow: none;
+      border: 2px solid rgba(0, 0, 0, 0.2);
+      background-clip: padding-box; }
+  @media (max-width: 767px) {
+    .leaflet-sidebar {
+      width: 100%;
+      padding: 0; }
+      .leaflet-sidebar.left.visible ~ .leaflet-left {
+        left: 100%; }
+      .leaflet-sidebar.right.visible ~ .leaflet-right {
+        right: 100%; }
+      .leaflet-sidebar.left {
+        left: -100%; }
+        .leaflet-sidebar.left.visible {
+          left: 0; }
+      .leaflet-sidebar.right {
+        right: -100%; }
+        .leaflet-sidebar.right.visible {
+          right: 0; }
+      .leaflet-sidebar > .leaflet-control {
+        box-shadow: none;
+        -webkit-border-radius: 0;
+        border-radius: 0; }
+        .leaflet-touch .leaflet-sidebar > .leaflet-control {
+          border: 0; } }
+  @media (min-width: 768px) and (max-width: 991px) {
+    .leaflet-sidebar {
+      width: 305px; }
+      .leaflet-sidebar.left.visible ~ .leaflet-left {
+        left: 305px; }
+      .leaflet-sidebar.right.visible ~ .leaflet-right {
+        right: 305px; } }
+  @media (min-width: 992px) and (max-width: 1199px) {
+    .leaflet-sidebar {
+      width: 390px; }
+      .leaflet-sidebar.left.visible ~ .leaflet-left {
+        left: 390px; }
+      .leaflet-sidebar.right.visible ~ .leaflet-right {
+        right: 390px; } }
+  @media (min-width: 1200px) {
+    .leaflet-sidebar {
+      width: 460px; }
+      .leaflet-sidebar.left.visible ~ .leaflet-left {
+        left: 460px; }
+      .leaflet-sidebar.right.visible ~ .leaflet-right {
+        right: 460px; } }
+  .leaflet-sidebar .close {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    width: 25px;
+    height: 25px;
+    color: black !important;
+    font-size: 25px;
+    line-height: 1em;
+    text-align: center;
+    background: white;
+    -webkit-border-radius: 16px;
+    border-radius: 16px;
+    cursor: pointer;
+    z-index: 2010;
+}
+.leaflet-left {
+  transition: left 0.5s;
+}
+.leaflet-right {
+  transition: right 0.5s;
+}
+
+.image--cover {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin: 20px;
+
+  object-fit: cover;
+  object-position: center right;
+}
+
+@include media-breakpoint-up(xs) {
+  html {
+    font-size: 1.4rem;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  html {
+    font-size: 1.3rem;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 1.5rem;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  html {
+    font-size: 1.7rem;
+  }
+}
+
+.lblName{
+    width: 140px;
+    display: inline-block;
+    margin-left: -110px;
+}
+.lblName:after{
+    content: ":";
+}
+
+.li {
+    padding-left: 110px;
+}
+
+
+.jumbotron {
+    background:#2c3e50;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   background-size: cover;
+   -o-background-size: cover;
+   color:white!important;
+}
+
+
+.lead {
+
+   color:white!important;
+}
+
+
+
 
     </style>
 
@@ -35,17 +257,192 @@
 
 
 <body>
-<h1>Leaflet Cluster Example</h1>
+<hr class="style13">
+<div class="jumbotron">
+    <h1 class="display-4">Localizador de Sapos</h1>
+    <p class="lead">Este mapa interactivo ayuda a visualizar a Orteguistas, CPC, Paramiliatares y simpatizantes Asesinos
+        del regimen</p>
+    <hr class="my-4">
+    <p>Utiliza Geolocalización para encontrar el punto mas cercano de las coordenadas donde reside el/la criminal</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#map" role="button">Ver Mapa</a>
+    </p>
+</div>
 
-<p>Here's an interactive map indicating where airports and train stations are located around the world. The data comes
-    from <a href="http://openflights.org/data.html" target="_blank">OpenFlights.org</a>.
 
-<div id="map" style="height: 440px; border: 1px solid #AAA;" class="mb-4"></div>
+<!-- <div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Fluid jumbotron</h1>
+    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+  </div>
+</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h1 class="display-3">Mapa de Orteguistas</h1>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col">
+        <p>Mapa Interactivo de Orteguistas, CPC, Paramilitares y todo aquel que contribuye con el regimen. Todas estas personas han contribuido de alguna manera con el Orteguismo y sus datos han sido reportados para visualizarlos mejor <a href="#" target="_blank">InternetBallerGroup.org</a>.
+    </div>
+  </div>
+</div>-->
+
+<!--<div id="map" style="height: 440px; border: 1px solid #AAA;" class="mb-4"></div>-->
+
+<div id="sidebar">
+
+    <!-- <h1>leaflet-sidebar</h1>      background: url('/static/images/nica-flag.jpg') no-repeat center center fixed;
+
+     <p>A responsive sidebar plugin for for <a href="http://leafletjs.com/">Leaflet</a>, a JS library for interactive maps.</p>
+
+     <p><b>Click on the marker to show the sidebar again when you've closed it.</b></p>
+
+     <p>Other examples:</p>
+
+     <ul>
+         <li><a href="listing-markers.html">listing-markers example</a></li>
+         <li><a href="two-sidebars.html">two-sidebars example</a></li>
+     </ul>
+
+     <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+
+     <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+     -->
+
+</div>
+
+<div id="map"></div>
+
+<div class="jumbotron jumbotron-fluid">
+    <img src="/static/images/round-nica-whiteblue.jpg" class="img-fluid rounded mx-auto d-block" alt="...">
+</div>
 
 <script type='text/javascript' src='/static/js/marker.js'></script>
 <script type='text/javascript' src='/static/js/leaf-demo.js'></script>
+
+<script src="http://unpkg.com/leaflet-sidebar"></script>
+
+
 <script>
+
+    /*New code here testing*/
+    var results = [];
+    //open sidebar and more content when clicking button in popup
+    var thisResult;
+
+     //add sidebar panel to map
+    //var sidebar = L.control.sidebar('sidebar', { position: 'right' });
+
+    var sidebar = L.control.sidebar('sidebar', {
+            closeButton: true,
+            position: 'left'
+        });
+    map.addControl(sidebar);
+
+     map.on('click', function () {
+            sidebar.hide();
+        })
+
+    /*sidebar.on('click', function () {
+            sidebar.hide();
+        })
+
+    $('#sidebar').click(function(){
+        sidebar.hide();
+    });
+
+    $('#leaflet-popup-close-button').click(function(){
+        sidebar.hide();
+    });*/
+
+
+
+     function openSidebar(ID) {
+        if ($('#sidebar').text().length > 0) {
+                  $("#sidebar").empty();
+        }
+        for (var i = 0, len = results.length; i < len; i++) {
+            if (results[i].id === parseInt(ID)) {
+                      thisResult = (results[i]);
+                }
+        }
+        //sidebar.open('home');
+        //sidebar.show('home');
+        setTimeout(function () {
+            sidebar.show('home');
+        }, 500);
+        var divToAddContent = document.getElementById('sidebar');
+        var alias = "SAP@";
+
+        if( thisResult.alias )
+        {
+            alias = thisResult.alias;
+        }
+
+         if( thisResult.imgpath ) {
+            // divToAddContent.innerHTML = "<h5> " + thisResult.fullname +  "</h5> <div class='text-center'> Alias: <mark class='text-uppercase'> " + alias + " </mark> <br> <img src= "+ thisResult.imgpath + " class='image--cover' >  </div>  " +
+                                         //" Departamento :   <mark class='text-uppercase'>" + thisResult.department + " </mark> <br> Municipio:  <mark class='text-uppercase'>" + thisResult.municipality + "</mark>";
+
+            divToAddContent.innerHTML = "<h5 class='text-center'>" + thisResult.fullname +  "</h5>  <div class='text-center'> Alias: <mark class='text-uppercase'> " + alias + " </mark> <br> <img src= "+ thisResult.imgpath + " class='image--cover' >  </div>  " +
+                                    "<div class='container'> <ul id='mylist'><li class='li'><span class='lblName'>Departamento</span> <span class='lblData'>" + thisResult.department + "</span></li>" +
+                                    " <li class='li'><span class='lblName'>Municipio</span> <span class='lblData'>" + thisResult.municipality + "</span></li></ul></div>";
+        }
+        else {
+            divToAddContent.innerHTML = "<h4 class='text-center'> " + thisResult.fullname +  "</h4> <div class='text-center'> ALIAS: " + alias  +" </div>  " +
+                                          " <div class='container'> <ul id='mylist' ><li class='li'><span class='lblName'>Departamento</span> <span class='lblData'>" + thisResult.department + "</span></li>" +
+                                        " <li class='li'><span class='lblName'>Municipio</span> <span class='lblData'>" + thisResult.municipality + "</span></li></ul></div>";
+        }
+
+
+        var listToAddContent = document.getElementById('mylist');
+
+        //divToAddContent.innerHTML = "<h4> " + thisResult.name + " " + thisResult.lastname +  "</h4> </br>Address:" + thisResult.area + "</br>Category:" + thisResult.department;
+
+        //divToAddContent.innerHTML = "<h5> " + thisResult.fullname +  "</h5> <div class='text-center'> <img src= "+ thisResult.imgpath + " class='image--cover' > </div>  " +
+       // " Departamento :   <mark class='text-uppercase'>" + thisResult.department + " </mark> <br> Municipio:  <mark class='text-uppercase'>" + thisResult.municipality + "</mark>";
+
+        if( thisResult.area ) {
+            //divToAddContent.innerHTML = divToAddContent.innerHTML + " <br> Direccion: <mark class='text-uppercase'>"+ thisResult.area +  " " + thisResult.address +
+               // " </mark>";
+
+             listToAddContent.innerHTML = listToAddContent.innerHTML + " <li class='li'><span class='lblName'>Direccion</span> <span class='lblData'>" + thisResult.area +  " " + thisResult.address + "</span></li>"
+        }
+
+        if( thisResult.fecha_nac ) {
+           // divToAddContent.innerHTML = divToAddContent.innerHTML + " <br> Fecha De Nac.: <mark class='text-uppercase'>"+ thisResult.fecha_nac+"</mark>";
+
+             listToAddContent.innerHTML = listToAddContent.innerHTML + " <li class='li'><span class='lblName'>Fecha De Nac.</span> <span class='lblData'>" + thisResult.fecha_nac + "</span></li>"
+        }
+
+
+        if( thisResult.allegations_details  ) {
+           // divToAddContent.innerHTML = divToAddContent.innerHTML + " <br> Fecha De Nac.: <mark class='text-uppercase'>"+ thisResult.fecha_nac+"</mark>";
+
+             divToAddContent.innerHTML = divToAddContent.innerHTML + "  <label for='exampleFormControlTextarea1'>Delitos</label> " +
+                                        "<textarea readonly class='form-control rounded-0 text-justify' id='exampleFormControlTextarea1' rows='8'>" + thisResult.allegations_details + " </textarea></div>"
+
+
+
+
+        }
+
+
+        //divToAddContent.innerHTML = divToAddContent.innerHTML + " </ul> ";
+
+
+    }
+
+
+    $("div").on("click", '.sidebar-open-button', function () {
+        var ID = $(this).attr("data");
+        openSidebar(ID);
+    });
+
+
 
 
     function loadsapos( jQuery ) {
@@ -59,22 +456,40 @@
                 for (var i = 0; i < data.length; i++ ) {
                          console.log( "test!" );
 
+                    results.push(data[i]);
+                    var popup = '<h6>' + data[i].fullname + '</h6>' +
+						   '<br/><button type="button" class="btn btn-primary sidebar-open-button" data = "' + data[i].id + '" ' + '>Mas Info</button>' ;
 
-                    var popup = data[i].name +  ' ' +  data[i].lastname +
+					/*	var popup = data[i].name +  ' ' +  data[i].lastname +
 						  '<br/>' + data[i].area + ' ' + data[i].municipality +
-						  '<br/><b>DEPARTAMENTO:</b> ' + data[i].department +
-						  '<br/><b>ALIAS:</b> ' + data[i].alias +
-						  '<br/><b>CEDULA:</b> ' + data[i].cedula_id ;
+						  '<br/><b>Departamento:</b> ' + data[i].department +
+						  '<br/><b>Alias:</b> ' + data[i].alias +
+						  '<br/><b>Cedula #:</b> ' + data[i].cedula_id ;*/
 
-			        var m = L.marker( [data[i].latitude, data[i].longitude], {icon: myIcon} ).on('click', function() {
-                                            centerLeafletMapOnMarker(map, this);}).bindPopup( popup );
+
+                    // specify popup options
+                   var customOptions =
+                        {
+                        'maxWidth': '400',
+                        'width': '200',
+                        'className' : 'custompopup'
+                        }
+			        /*var m = L.marker( [data[i].latitude, data[i].longitude], {icon: myIcon} ).on('click', function() {
+                                            centerLeafletMapOnMarker(map, this);}).bindPopup( popup,customOptions);*/
+                    var m = L.marker( [data[i].latitude, data[i].longitude], {icon: myIcon} ).bindPopup( popup,customOptions);
 
 			        markerClusters.addLayer( m );
                   }
 
                   map.addLayer( markerClusters );
 
-                  map.setView(new L.LatLng( 12.8691653, -85.1411896), 7);
+                  L.easyButton( 'fa-arrow-up', function(){
+                    //alert('you just clicked a font awesome icon');
+                    $('html, body').animate({ scrollTop: 0 }, 'fast');
+                    },'Volver a la Parte superior').addTo(map);
+
+                 // map.setView(new L.LatLng( 12.8691653, -85.1411896), 10);
+                 map.setView(new L.LatLng( 12.1150, -86.2362), 10);
 
             })
             .done(function() { console.log('getJSON request succeeded!'); })
@@ -89,7 +504,6 @@
         var markerBounds = L.latLngBounds(latLngs);
         map.fitBounds(markerBounds);
     }
-
 
 
 </script>
