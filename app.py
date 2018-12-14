@@ -1093,12 +1093,83 @@ def load_municipalities():
     return render_template('add_profile.html')
 
 
+@app.route('/load_areas', methods=['GET', 'POST'])
+def load_areas():
+    try:
+        # nicadata = pd.read_csv('/Users/DRob/PycharmProjects/myflaskapp/mydata.csv')
+
+        # nicadata = pd.read_csv('/home/Darwinr08/sapoapp/mydata.csv')
+
+        department = request.args.get('dpt', '', type=str)
+        municipality = request.args.get('mncplty', '', type=str)
+
+        # Create Cursor
+        cur = mysql.connection.cursor()
+
+        # Get Articles
+        result = cur.execute(
+            "SELECT DISTINCT area FROM profiles WHERE department = %s and municipality = %s and LENGTH(area) > 0",
+            (department, municipality))
+
+        area = cur.fetchall()
+
+        # if result > 0:
+        #  return render_template('dashboard.html', profiles=profiles)
+        # else:
+
+        # Close Connection
+        cur.close
+
+        return jsonify(area)
+
+    except OSError as err:
+        print("OS error: {0}".format(err))
+    except ValueError:
+        print("Unexpected error:", sys.exc_info()[0])
+    except:
+        print("Other error:", sys.exc_info()[0])
+
+    return render_template('add_profile.html')
+
+
+@app.route('/load_lastnames', methods=['GET', 'POST'])
+def load_lastnames():
+    try:
+        department = request.args.get('dpt', '', type=str)
+        municipality = request.args.get('mncplty', '', type=str)
+        area = request.args.get('area', '', type=str)
+
+        # Create Cursor
+        cur = mysql.connection.cursor()
+
+        # Get Articles
+        result = cur.execute("SELECT DISTINCT lastname FROM profiles WHERE department = %s and municipality = %s AND "
+                             " area=%s and LENGTH(lastname) > 0",
+                             (department, municipality, area))
+
+        lastnames = cur.fetchall()
+
+        # Close Connection
+        cur.close
+
+        return jsonify(lastnames)
+
+    except OSError as err:
+        print("OS error: {0}".format(err))
+    except ValueError:
+        print("Unexpected error:", sys.exc_info()[0])
+    except:
+        print("Other error:", sys.exc_info()[0])
+
+    return render_template('add_profile.html')
+
 @app.route('/filter_profiles', methods=['GET', 'POST'])
 def filter_profiles():
     try:
         municipality = request.args.get('mncplty', '', type=str)
         department = request.args.get('dpt', '', type=str)
         area = request.args.get('area', '', type=str)
+        lastname = request.args.get('lastname', '', type=str)
 
         where_clause = ""
         inputparam = ""
@@ -1129,6 +1200,11 @@ def filter_profiles():
             else:
                 where_clause = " WHERE area  = %s"
                 inputparam = area,
+
+        if len(lastname) > 0 and lastname != "Apellido":
+            where_clause = where_clause + " AND lastname = %s"
+            inputparam = (municipality, department, area, lastname)
+
 
         # Create Cursor
         cur = mysql.connection.cursor()
@@ -1168,7 +1244,8 @@ def sapos_loader():
     cur = mysql.connection.cursor()
 
     # Get Articles
-    result = cur.execute("SELECT * FROM profiles WHERE latitude <> 0 and longitude <> 0")
+    result = cur.execute(
+        "SELECT *, DATE_FORMAT(dob,'%d/%m/%Y') AS fecha_nac, CONCAT_WS(' ',CASE name WHEN '' THEN NULL ELSE name END, CASE middle_name WHEN '' THEN NULL ELSE SUBSTRING(middle_name,1,1) END,CASE lastname WHEN '' THEN NULL ELSE lastname END,CASE lastname_mother WHEN '' THEN NULL ELSE lastname_mother END) as fullname FROM profiles WHERE latitude <> 0 and longitude <> 0")
 
     # result = cur.execute("SELECT * FROM profiles WHERE municipality = %s and area = %s and department = %s",
     #                      (municipality, area, department))
