@@ -3,6 +3,7 @@
 {% block body %}
 
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Gochi+Hand|Indie+Flower|Righteous" rel="stylesheet">
     <style>
 .jumbotron {
     background: url('/static/images/nica-flag.jpg') no-repeat center center fixed;
@@ -11,8 +12,43 @@
    background-size: cover;
    -o-background-size: cover;
    color:white!important;
+    height: 80vh;
 
 }
+
+@media (max-width: 300px) {
+
+
+  .jumbotron {
+        background: url('/static/images/nica-flag-600.jpg') no-repeat center center fixed;
+         -webkit-background-size: cover;
+       -moz-background-size: cover;
+       background-size: cover;
+       -o-background-size: cover;
+       color:white!important;
+        height: 70vh;
+
+    }
+}
+
+@media (min-width: 301px) and (max-width: 600px) {
+    .jumbotron {
+        background: url('/static/images/nica-flag-600.jpg') no-repeat center center fixed;
+         -webkit-background-size: cover;
+       -moz-background-size: cover;
+       background-size: cover;
+       -o-background-size: cover;
+       color:white!important;
+        height: 70vh;
+    }
+
+
+
+
+}
+
+
+
 
 
 .lead {
@@ -49,16 +85,17 @@ header {
 }
 
 .header-one {
-  font-family: 'Philosopher', sans-serif;
-  font-size: 250%;
+  font-family: 'Gochi Hand', cursive;
+  font-size: 400%;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
   word-spacing: 2px;
   color: #fff;
-  text-align: center;
-  margin-top: 50px;
+  text-align: left;
+  margin-top: 90px;
   margin-bottom: 10px;
+  background-attachment: fixed;
 }
 
 p {
@@ -94,9 +131,7 @@ p {
   transition: 0.3s;
 }
 
-@media screen and (min-width: 768px){
 
-}
 
 @media only screen and (max-width: 767px) {
 
@@ -112,6 +147,21 @@ p {
     padding: 10px;
     margin-top: 0;
   }
+
+  .header-one {
+   font-family: 'Gochi Hand', cursive;
+  font-size: 320%;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  color: #007bff;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-attachment: fixed;
+  padding-top: 200px
+}
 
 }
 
@@ -151,6 +201,10 @@ p {
   .section-products img {
     display: block;
     margin: 20px auto;
+  }
+
+  .header-one {
+    display:none;
   }
 
 
@@ -335,31 +389,38 @@ p {
     </style>
 </head>
 
+<div class="jumbotron">
+    <h1 class="header-one">Ni Perdon, Ni Olvido</h1>
 
-<header id="home">
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="/show_map" role="button">Localización</a>
+    </p>
+</div>
+
+<!--<header id="home">
     <div class="text-box">
         <h1 class="header-one">For the sake of your health</h1>
         <p>Find out why we have the best nuts in the US</p>
         <a class="btns" href="#video">Watch Video</a>
         <a class="btns" href="#get-started">Get Started</a>
   </div>
-</header>
+</header>-->
 
-<div class="container">
+<!--<div class="container">
     <hr class="style13">
 
     <div class="jumbotron text-center">
-        <!-- <h1> Welcome to the Nomadroof World</h1>
-         <p class="lead"> This application is built for personal use using python anf flask. Nomadroof </p> -->
+        &lt;!&ndash; <h1> Welcome to the Nomadroof World</h1>
+         <p class="lead"> This application is built for personal use using python anf flask. Nomadroof </p> &ndash;&gt;
 
         {% if session.logged_in == NULL %}
-        <!--  <a href="/registration" class="btn btn-primary btn-lg">Register</a>
-          <a href="/signin" class="btn btn-success btn-lg">Login</a> -->
+        &lt;!&ndash;  <a href="/registration" class="btn btn-primary btn-lg">Register</a>
+          <a href="/signin" class="btn btn-success btn-lg">Login</a> &ndash;&gt;
 
         {% endif %}
     </div>
     <hr class="style13">
-</div>
+</div>-->
 
 
 <div class="container-fluid" id="main">
