@@ -5,63 +5,36 @@
 <head>
     <link href="https://fonts.googleapis.com/css?family=Gochi+Hand|Indie+Flower|Righteous" rel="stylesheet">
     <style>
-.jumbotron {
-    background: url('/static/images/nica-flag.jpg') no-repeat center center fixed;
-   -webkit-background-size: cover;
-   -moz-background-size: cover;
-   background-size: cover;
-   -o-background-size: cover;
-   color:white!important;
-    height: 80vh;
-
-}
-
-@media (max-width: 300px) {
-
-
-  .jumbotron {
-        background: url('/static/images/nica-flag-600.jpg') no-repeat center center fixed;
-         -webkit-background-size: cover;
-       -moz-background-size: cover;
-       background-size: cover;
-       -o-background-size: cover;
-       color:white!important;
-        height: 70vh;
-
-    }
-}
-
-@media (min-width: 301px) and (max-width: 600px) {
-    .jumbotron {
-        background: url('/static/images/nica-flag-600.jpg') no-repeat center center fixed;
-         -webkit-background-size: cover;
-       -moz-background-size: cover;
-       background-size: cover;
-       -o-background-size: cover;
-       color:white!important;
-        height: 70vh;
-    }
-
-
-
-
-}
-
-
-
-
-
 .lead {
 
    color:white!important;
 }
 
+.leads {
+
+   color:white!important;
+   font-weight: bold;
+   font-family: 'Gochi Hand', cursive;
+   font-size: 165%;
+}
+
+.jmbo{
+
+   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/static/images/nica-fist-1200.jpg?raw=true);
+   -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 85vh;
+}
 
 @import url('https://fonts.googleapis.com/css?family=Muli:300,400|Philosopher:400,700');
 
 header {
   position: relative;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/static/images/nica-flag.jpg?raw=true);
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(/static/images/nica-flag.jpg?raw=true);
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -113,7 +86,7 @@ p {
 .btns:visited{
   display: inline-block;
   padding: 10px 30px;
-  font-weight: 300;
+  font-weight: 500;
   border-radius: 150px;
    -webkit-transition: background-color 0.2s, border 0.2s, color 0.2s;
   transition: background-color 0.2s, border 0.2s, color 0.2s;
@@ -155,7 +128,7 @@ p {
   text-transform: uppercase;
   letter-spacing: 2px;
   word-spacing: 2px;
-  color: #007bff;
+  color: #fff;
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -203,9 +176,44 @@ p {
     margin: 20px auto;
   }
 
-  .header-one {
+  header {
+  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(/static/images/nica-flag-600.jpg?raw=true);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 100vh;
+  text-align: center;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+}
+
+.jmbo{
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/static/images/nica-fist-600.jpg?raw=true);
+     -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 90vh;
+}
+
+.leads {
+
+    color:white!important;
+   font-weight: bold;
+   font-family: 'Gochi Hand', cursive;
+   font-size: 130%;
+}
+
+  <!--.header-one {
     display:none;
-  }
+  }-->
 
 
 }
@@ -233,6 +241,9 @@ p {
   h2 {
     margin-top: 40px;
   }
+
+
+
 
 
 }
@@ -389,22 +400,72 @@ p {
     </style>
 </head>
 
-<div class="jumbotron">
+<!--<div class="jumbotron">
     <h1 class="header-one">Ni Perdon, Ni Olvido</h1>
 
     <p class="lead">
         <a class="btn btn-primary btn-lg" href="/show_map" role="button">Localización</a>
     </p>
+</div>-->
+
+<header id="home">
+    <div class="text-box">
+        <h1 class="header-one">NI PERDÓN, NI OLVIDO</h1>
+        <p>Find out why we have the best nuts in the US</p>
+        <a class="btns" href="https://twitter.com/hashtag/sosnicaragua">#SOSNICARAGUA</a>
+        <!--<a class="btns" href="#get-started">Get Started</a>-->
+  </div>
+</header>
+
+<div class="container mt-4">
+    <div class="jumbotron jmbo">
+        <h1 class="display-4 ">NicaApp</h1>
+        <p class="leads">Esta es una pequeña aplicación que sirve como una herramienta para que el pueblo de Nicaragua
+            se informe sobre quienes son las Paramilitares, CPCs y Asesinos del Régimen </p>
+        <hr class="my-4">
+        <p class="text-white"><strong>Con esta aplicación no se pretende incitar a la violencia ni mucho menos</strong>
+        </p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="/show_map" role="button">Ver Mapa</a>
+        </p>
+    </div>
 </div>
 
-<!--<header id="home">
-    <div class="text-box">
-        <h1 class="header-one">For the sake of your health</h1>
-        <p>Find out why we have the best nuts in the US</p>
-        <a class="btns" href="#video">Watch Video</a>
-        <a class="btns" href="#get-started">Get Started</a>
-  </div>
-</header>-->
+<section class="statistics">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="box">
+                    <i class="fa fa-envelope fa-fw bg-primary"></i>
+                    <div class="info">
+                        <h3>1,245</h3> <span>Emails</span>
+                        <p>Lorem ipsum dolor sit amet</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="box">
+                    <i class="fa fa-file fa-fw bg-danger"></i>
+                    <div class="info">
+                        <h3>34</h3> <span>Projects</span>
+                        <p>Lorem ipsum dolor sit amet</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="box">
+                    <i class="fa fa-users fa-fw bg-success"></i>
+                    <div class="info">
+                        <h3>5,245</h3> <span>Users</span>
+                        <p>Lorem ipsum dolor sit amet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 
 <!--<div class="container">
     <hr class="style13">
@@ -423,7 +484,7 @@ p {
 </div>-->
 
 
-<div class="container-fluid" id="main">
+<!--<div class="container-fluid" id="main">
     <div class="row row-offcanvas row-offcanvas-left">
         <div class="col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar" role="navigation">
             <ul class="nav flex-column pl-1">
@@ -446,77 +507,12 @@ p {
         </div>
 
 
-        <!--<div class="nav-side-menu">
-      <div class="brand">Brand Logo</div>
-      <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-
-          <div class="menu-list">
-
-              <ul id="menu-content" class="menu-content collapse out">
-                  <li>
-                    <a href="#">
-                    <i class="fa fa-dashboard fa-lg"></i> Dashboard
-                    </a>
-                  </li>
-
-                  <li  data-toggle="collapse" data-target="#products" class="collapsed active">
-                    <a href="#"><i class="fa fa-gift fa-lg"></i> UI Elements <span class="arrow"></span></a>
-                  </li>
-                  <ul class="sub-menu collapse" id="products">
-                      <li class="active"><a href="#">CSS3 Animation</a></li>
-                      <li><a href="#">General</a></li>
-                      <li><a href="#">Buttons</a></li>
-                      <li><a href="#">Tabs & Accordions</a></li>
-                      <li><a href="#">Typography</a></li>
-                      <li><a href="#">FontAwesome</a></li>
-                      <li><a href="#">Slider</a></li>
-                      <li><a href="#">Panels</a></li>
-                      <li><a href="#">Widgets</a></li>
-                      <li><a href="#">Bootstrap Model</a></li>
-                  </ul>
-
-
-                  <li data-toggle="collapse" data-target="#service" class="collapsed">
-                    <a href="#"><i class="fa fa-globe fa-lg"></i> Services <span class="arrow"></span></a>
-                  </li>
-                  <ul class="sub-menu collapse" id="service">
-                    <li>New Service 1</li>
-                    <li>New Service 2</li>
-                    <li>New Service 3</li>
-                  </ul>
-
-
-                  <li data-toggle="collapse" data-target="#new" class="collapsed">
-                    <a href="#"><i class="fa fa-car fa-lg"></i> New <span class="arrow"></span></a>
-                  </li>
-                  <ul class="sub-menu collapse" id="new">
-                    <li>New New 1</li>
-                    <li>New New 2</li>
-                    <li>New New 3</li>
-                  </ul>
-
-
-                   <li>
-                    <a href="#">
-                    <i class="fa fa-user fa-lg"></i> Profile
-                    </a>
-                    </li>
-
-                   <li>
-                    <a href="#">
-                    <i class="fa fa-users fa-lg"></i> Users
-                    </a>
-                  </li>
-              </ul>
-       </div>
-  </div>-->
-
         <div class="col-md-9 col-lg-10 main">
-            <h1 class="display-2 hidden-xs-down">
+            <h1 class="display-2 d-none d-sm-block">
                 Bootstrap 4 Dashboard
             </h1>
 
-            <p class="lead hidden-xs-down">(with off-canvas sidebar, based on BS v4 alpha 6)</p>
+            <p class="lead d-none d-sm-block">(with off-canvas sidebar, based on BS v4 alpha 6)</p>
 
             <div class="alert alert-warning fade collapse" role="alert" id="myAlert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -526,105 +522,6 @@ p {
                 <strong>Holy guacamole!</strong> It's free.. this is an example theme.
             </div>
 
-            <!--<div class="row mb-3">
-                <div class="col-xl-3 col-lg-6">
-                    <div class="card card-inverse card-success">
-                        <div class="card-block bg-success">
-                            <div class="rotate">
-                                <i class="fa fa-user fa-5x"></i>
-                            </div>
-                            <h6 class="text-uppercase">Users</h6>
-                            <h1 class="display-1">134</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-6">
-                    <div class="card card-inverse card-danger">
-                        <div class="card-block bg-danger">
-                            <div class="rotate">
-                                <i class="fa fa-list fa-4x"></i>
-                            </div>
-                            <h6 class="text-uppercase">Posts</h6>
-                            <h1 class="display-1">87</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-6">
-                    <div class="card card-inverse card-info">
-                        <div class="card-block bg-info">
-                            <div class="rotate">
-                                <i class="fa fa-twitter fa-5x"></i>
-                            </div>
-                            <h6 class="text-uppercase">Tweets</h6>
-                            <h1 class="display-1">125</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-6">
-                    &lt;!&ndash;<div class="card card-inverse card-warning">
-                      <div class="card-block bg-warning">
-                        <div class="rotate">
-                          <i class="fa fa-share fa-5x"></i>
-                        </div>
-                        <h6 class="text-uppercase">Shares</h6>
-                        <h1 class="display-1">36</h1>
-                      </div>
-                    </div>&ndash;&gt;
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i> Notifications Panel
-                        </div>
-                        <div class="panel-body">
-                            <div class="list-group">
-                                <a class="list-group-item" href="#"><i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class=
-                                                  "pull-right text-muted small"><em>14 minutes ago</em></span></a> <a
-                                    class="list-group-item" href=
-                                    "#"><i class="fa fa-tasks fa-fw"></i> New Task <span
-                                    class="pull-right text-muted small"><em>55
-                    minutes ago</em></span></a> <a class="list-group-item" href="#"><i class="fa fa-upload fa-fw"></i>
-                                Server Rebooted <span class="pull-right text-muted small"><em>55 minutes ago</em></span></a>
-                                <a class="list-group-item" href="#"><i class="fa fa-bolt fa-fw"></i> Server Crashed!
-                                    <span class=
-                                                  "pull-right text-muted small"><em>3:33 PM</em></span></a> <a
-                                    class="list-group-item" href=
-                                    "#"><i class="fa fa-warning fa-fw"></i> Server Not Responding <span class=
-                                                                                                                "pull-right text-muted small"><em>10:57 AM</em></span></a>
-                            </div>
-                            <a class="btn btn-info btn-block" href="#">View All Alerts</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>-->
-            <!--/row-->
-
-            <!--<div class="row placeholders mb-3">
-                <div class="col-6 col-sm-3 placeholder text-center">
-                    <img src="//placehold.it/200/dddddd/fff?text=1" class="center-block img-fluid rounded-circle"
-                         alt="Generic placeholder thumbnail">
-                    <h4>Responsive</h4>
-                    <span class="text-muted">Device agnostic</span>
-                </div>
-                <div class="col-6 col-sm-3 placeholder text-center">
-                    <img src="//placehold.it/200/e4e4e4/fff?text=2" class="center-block img-fluid rounded-circle"
-                         alt="Generic placeholder thumbnail">
-                    <h4>Frontend</h4>
-                    <span class="text-muted">UI / UX oriented</span>
-                </div>
-                <div class="col-6 col-sm-3 placeholder text-center">
-                    <img src="//placehold.it/200/d6d6d6/fff?text=3" class="center-block img-fluid rounded-circle"
-                         alt="Generic placeholder thumbnail">
-                    <h4>HTML5</h4>
-                    <span class="text-muted">Standards-based</span>
-                </div>
-                <div class="col-6 col-sm-3 placeholder text-center">
-                    <img src="//placehold.it/200/e0e0e0/fff?text=4" class="center-block img-fluid rounded-circle"
-                         alt="Generic placeholder thumbnail">
-                    <h4>Framework</h4>
-                    <span class="text-muted">CSS and JavaScript</span>
-                </div>
-            </div>-->
 
             <section class="statistics">
                 <div class="container-fluid">
@@ -895,7 +792,7 @@ $(function () {
 
 });
 
-</script>
+</script>-->
 
 {% endblock %}
 
