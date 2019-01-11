@@ -412,18 +412,18 @@ html, body, #map {
              listToAddContent.innerHTML = listToAddContent.innerHTML + " <li class='li'><span class='lblName'>Direccion</span> <span class='lblData'>" + thisResult.area +  " " + thisResult.address + "</span></li>"
         }
 
-        if( thisResult.fecha_nac ) {
+        if( thisResult.category ) {
            // divToAddContent.innerHTML = divToAddContent.innerHTML + " <br> Fecha De Nac.: <mark class='text-uppercase'>"+ thisResult.fecha_nac+"</mark>";
 
-             listToAddContent.innerHTML = listToAddContent.innerHTML + " <li class='li'><span class='lblName'>Fecha De Nac.</span> <span class='lblData'>" + thisResult.fecha_nac + "</span></li>"
+             listToAddContent.innerHTML = listToAddContent.innerHTML + " <li class='li'><span class='lblName'>Categoria</span> <span class='lblData'>" + thisResult.category + "</span></li>"
         }
 
 
         if( thisResult.allegations_details  ) {
            // divToAddContent.innerHTML = divToAddContent.innerHTML + " <br> Fecha De Nac.: <mark class='text-uppercase'>"+ thisResult.fecha_nac+"</mark>";
 
-             divToAddContent.innerHTML = divToAddContent.innerHTML + "  <label for='exampleFormControlTextarea1'>Delitos</label> " +
-                                        "<textarea readonly class='form-control rounded-0 text-justify' id='exampleFormControlTextarea1' rows='8'>" + thisResult.allegations_details + " </textarea></div>"
+             divToAddContent.innerHTML = divToAddContent.innerHTML + "  <label for='exampleFormControlTextarea1'>Detalles</label> " +
+                                        "<textarea readonly class='form-control rounded-0 text-justify' id='exampleFormControlTextarea1' rows='6'>" + thisResult.allegations_details + " </textarea></div>"
 
 
 

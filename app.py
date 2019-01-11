@@ -176,12 +176,12 @@ def increment_filename(filename, marker='-'):
 
 
 def insert_profile(name, midlename, lastname, lastnamemom, dob, cedula, imgpath, phone, address, department,
-                   municipality, area, employment, alias, sex, allegations, lat, lng):
+                   municipality, area, employment, alias, sex, allegations, lat, lng, status, category):
     query = "INSERT INTO profiles(name,middle_name,lastname,lastname_mother,dob,cedula_id,imgpath,phone," \
-            "address,department,municipality,area,work,alias,sex,allegations_details,latitude,longitude) " \
-            "VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            "address,department,municipality,area,work,alias,sex,allegations_details,latitude,longitude,status,category)" \
+            "VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
     args = (name, midlename, lastname, lastnamemom, dob, cedula, imgpath, phone, address, department,
-            municipality, area, employment, alias, sex, allegations, lat, lng)
+            municipality, area, employment, alias, sex, allegations, lat, lng, status, category)
 
     try:
         # Create cursor
@@ -227,6 +227,20 @@ def add_new_profile():
             # work_address = request.form['work_address']
             allegations = request.form['comment']
             gender = request.form['defaultExampleRadios']
+            category = request.form['category']
+
+            if len(dob) == 0:
+                dob = '01/01/1900'
+
+            if category == 'Categoria':
+                category = 'NONE'
+
+            status = 'NONE'
+
+            if 'username' in session:
+                username = session['username']
+                if username == 'Drob':
+                    status = 'VERIFIED'
 
             if len(area) == 0:
                 full_address = municipality + ", " + department + ", Nicaragua"
@@ -297,7 +311,8 @@ def add_new_profile():
 
             if insert_profile(name, middle_name, lastname, secondlname, dob_obj, cedula, img_path, phone, address,
                               department,
-                              municipality, area, work, alias, '', allegations, latitude, longitude):
+                              municipality, area, work, alias, gender, allegations, latitude, longitude, status,
+                              category):
 
                 # Create Cursor
                 cur = mysql.connection.cursor()
@@ -321,7 +336,6 @@ def add_new_profile():
         raise
 
     return render_template('profile_registration.html')
-
 
 @app.route('/add_profile', methods=['GET', 'POST'])
 def new_profile():
@@ -634,6 +648,12 @@ def profile(profile_id):
 
     profile = cur.fetchone()
 
+    if profile['dob'].year == 1900:
+        profile['dob'] = None
+
+    if profile['category'] == 'NONE':
+        profile['category'] = None
+
     # Close Connection
     cur.close
 
@@ -810,65 +830,65 @@ def register():
     return render_template('register.html', form=form)
 
 
-@app.route('/registration', methods=['GET', 'POST'])
-def registration():
-    form = NewRegisterForm(request.form)
-
-    if request.method == 'POST' and form.validate():
-        name = form.name.data
-        email = form.email.data
-        username = form.username.data
-        password = sha256_crypt.encrypt(str(form.password.data))
-
-        # Create cursor
-        cur = mysql.connection.cursor()
-
-        # Get user by username
-        result = cur.execute("SELECT * FROM users WHERE username =%s", [username])
-
-        if result > 0:
-            flash('User already exist', 'danger')
-
-            return render_template('new_register.html', form=form)
-
-        # Get user by username
-        email_result = cur.execute("SELECT * FROM users WHERE email =%s", [email])
-
-        if email_result > 0:
-            flash('E-mail already exist', 'danger')
-            form.email.data = None
-            return render_template('new_register.html', form=form)
-
-        #   Execute query
-        cur.execute("INSERT INTO users(name, email, username, password) VALUES( %s, %s, %s, %s)",
-                    (name, email, username, password))
-
-        # commit DB
-        mysql.connection.commit()
-
-        # Close connection
-        cur.close()
-
-        flash('You are now registered and can log in', 'success')
-
-        return redirect(url_for('login'))
-
-    if request.method == 'POST':
-        username = form.username.data
-
-        # Create cursor
-        cur = mysql.connection.cursor()
-
-        # Get user by username
-        user_result = cur.execute("SELECT * FROM users WHERE username =%s", [username])
-        if user_result > 0:
-            error = 'User already exist'
-
-            return 'error_show'
-        else:
-            return 'no_error'
-
-    return render_template('new_register.html', form=form)
+# @app.route('/registration', methods=['GET', 'POST'])
+# def registration():
+#     form = NewRegisterForm(request.form)
+#
+#     if request.method == 'POST' and form.validate():
+#         name = form.name.data
+#         email = form.email.data
+#         username = form.username.data
+#         password = sha256_crypt.encrypt(str(form.password.data))
+#
+#         # Create cursor
+#         cur = mysql.connection.cursor()
+#
+#         # Get user by username
+#         result = cur.execute("SELECT * FROM users WHERE username =%s", [username])
+#
+#         if result > 0:
+#             flash('User already exist', 'danger')
+#
+#             return render_template('new_register.html', form=form)
+#
+#         # Get user by username
+#         email_result = cur.execute("SELECT * FROM users WHERE email =%s", [email])
+#
+#         if email_result > 0:
+#             flash('E-mail already exist', 'danger')
+#             form.email.data = None
+#             return render_template('new_register.html', form=form)
+#
+#         #   Execute query
+#         cur.execute("INSERT INTO users(name, email, username, password) VALUES( %s, %s, %s, %s)",
+#                     (name, email, username, password))
+#
+#         # commit DB
+#         mysql.connection.commit()
+#
+#         # Close connection
+#         cur.close()
+#
+#         flash('You are now registered and can log in', 'success')
+#
+#         return redirect(url_for('login'))
+#
+#     if request.method == 'POST':
+#         username = form.username.data
+#
+#         # Create cursor
+#         cur = mysql.connection.cursor()
+#
+#         # Get user by username
+#         user_result = cur.execute("SELECT * FROM users WHERE username =%s", [username])
+#         if user_result > 0:
+#             error = 'User already exist'
+#
+#             return 'error_show'
+#         else:
+#             return 'no_error'
+#
+#     return render_template('new_register.html', form=form)
 
 
 # User Login
@@ -1181,13 +1201,13 @@ def filter_profiles():
 
         if len(department) > 0 and department != "Departamento":
             if len(where_clause) > 0:
-                where_clause = where_clause + " AND Department = %s"
+                where_clause = where_clause + " AND department = %s"
                 inputparam = (municipality, department)
             else:
                 where_clause = " WHERE Department  = %s "
                 inputparam = department,
 
-        if len(area) > 0 and area != "Barrio/Colonia":
+        if len(area) > 0 and area != "Barrio/Colonia" and area != "None":
             if len(where_clause) > 0:
                 where_clause = where_clause + " AND area = %s"
 
@@ -1201,10 +1221,9 @@ def filter_profiles():
                 where_clause = " WHERE area  = %s"
                 inputparam = area,
 
-        if len(lastname) > 0 and lastname != "Apellido":
+        if len(lastname) > 0 and lastname != "Apellido" and lastname != "None":
             where_clause = where_clause + " AND lastname = %s"
             inputparam = (municipality, department, area, lastname)
-
 
         # Create Cursor
         cur = mysql.connection.cursor()
@@ -1260,6 +1279,29 @@ def sapos_loader():
     cur.close
 
     return jsonify(myusers)
+
+
+@app.route('/load_counters', methods=['GET', 'POST'])
+def load_counters():
+    # Create Cursor
+    cur = mysql.connection.cursor()
+
+    # Get Articles
+    result = cur.execute(
+        "SELECT DISTINCT category, count(category) AS counter "
+        " FROM profiles "
+        " WHERE LENGTH(category) > 0 "
+        " GROUP BY category")
+
+    # result = cur.execute("SELECT * FROM profiles WHERE municipality = %s and area = %s and department = %s",
+    #                      (municipality, area, department))
+
+    mycounters = cur.fetchall()
+
+    # Close Connection
+    cur.close
+
+    return jsonify(mycounters)
 
 
 if __name__ == '__main__':

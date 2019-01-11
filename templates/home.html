@@ -411,7 +411,7 @@ p {
 <header id="home">
     <div class="text-box">
         <h1 class="header-one">NI PERDÓN, NI OLVIDO</h1>
-        <p>Find out why we have the best nuts in the US</p>
+        <p>Por todos aquellos que dieron la vida por una NICARAGUA libre</p>
         <a class="btns" href="https://twitter.com/hashtag/sosnicaragua">#SOSNICARAGUA</a>
         <!--<a class="btns" href="#get-started">Get Started</a>-->
   </div>
@@ -436,28 +436,28 @@ p {
         <div class="row">
             <div class="col-md-4">
                 <div class="box">
-                    <i class="fa fa-envelope fa-fw bg-primary"></i>
+                    <i class="fa fa-address-book fa-fw bg-primary"></i>
                     <div class="info">
-                        <h3>1,245</h3> <span>Emails</span>
-                        <p>Lorem ipsum dolor sit amet</p>
+                        <h3 id="reports">1,245</h3> <span>Reportes</span>
+                        <p>Total Reportes</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="box">
-                    <i class="fa fa-file fa-fw bg-danger"></i>
+                    <i class="fa fa-bug fa-fw bg-danger"></i>
                     <div class="info">
-                        <h3>34</h3> <span>Projects</span>
-                        <p>Lorem ipsum dolor sit amet</p>
+                        <h3 id="sapos">34</h3> <span>CPC</span>
+                        <p>CPC's reportados</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="box">
-                    <i class="fa fa-users fa-fw bg-success"></i>
+                    <i class="fa fa-bug fa-fw bg-success"></i>
                     <div class="info">
-                        <h3>5,245</h3> <span>Users</span>
-                        <p>Lorem ipsum dolor sit amet</p>
+                        <h3 id="users">5,245</h3> <span>Paramilitares</span>
+                        <p>Paramilitares reportados</p>
                     </div>
                 </div>
             </div>
@@ -793,6 +793,49 @@ $(function () {
 });
 
 </script>-->
+
+
+<script>
+    $(document).ready(function(){
+
+          $.getJSON('/load_counters',{
+
+            },
+              function(data) {
+
+                 var total = 0;
+                 var paramilitares = 0;
+                 var cpc = 0;
+                 if ($.trim(data)){
+                    console.log('Counters on');
+                 }
+                 for (var i = 0; i < data.length; i++ ) {
+                       if (data[i].category === 'Paramilitar' ){
+                            console.log('Paramilares on');
+                            paramilitares = data[i].counter ;
+                        }
+
+                        if (data[i].category === 'CPC' ){
+                            console.log('CPC on');
+                            cpc = data[i].counter;
+                        }
+
+                        total += data[i].counter;
+
+                 }
+                 console.log(total);
+                 $('#users').attr("value",total).text(paramilitares);
+                 $('#sapos').attr("value",total).text(cpc);
+                 $('#reports').attr("value",total).text(total);
+
+            })
+            .done(function() { console.log('getJSON request succeeded!'); })
+            .fail(function(jqXHR, textStatus, errorThrown) { console.log('getJSON request failed! ' + textStatus); });
+
+    });
+
+
+</script>
 
 {% endblock %}
 
