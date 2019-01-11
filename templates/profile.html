@@ -131,6 +131,18 @@
                                 </div>
                             </div>
 
+                            {%if profile.category %}
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"> Categoria:</div>
+
+                                <div class="profile-info-value">
+                                    <span>{{profile.category}}</span>
+                                </div>
+
+
+                            </div>
+                            {% endif %}
+
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Direccion :</div>
 
@@ -157,7 +169,7 @@
                                 </div>
                             </div>
 
-
+                            {%if profile.dob %}
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Fecha Nac. :</div>
 
@@ -167,6 +179,9 @@
 
 
                             </div>
+                            {% endif %}
+
+
 
                             <div class="profile-info-row">
                                 <div class="profile-info-name"> Sexo :</div>
@@ -190,13 +205,13 @@
                         <div class="hr hr-8 dotted"></div>
 
                         <div class="profile-user-info">
-                            <div class="profile-info-row">
-                                <div class="profile-info-name"> Website :</div>
+                            <!-- <div class="profile-info-row">
+                                 <div class="profile-info-name"> Website :</div>
 
-                                <div class="profile-info-value">
-                                    <a class="two" href="#" target="_blank">www.sapos.com</a>
-                                </div>
-                            </div>
+                                 <div class="profile-info-value">
+                                     <a class="two" href="#" target="_blank">www.sapos.com</a>
+                                 </div>
+                             </div>-->
 
                             <div class="profile-info-row">
                                 <div class="profile-info-name">
