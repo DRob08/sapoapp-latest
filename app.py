@@ -648,6 +648,10 @@ def profile(profile_id):
 
     profile = cur.fetchone()
 
+    result = cur.execute("SELECT * FROM images WHERE profile_id = %s", [profile_id])
+
+    images = cur.fetchall()
+
     if profile['dob'].year == 1900:
         profile['dob'] = None
 
@@ -657,7 +661,7 @@ def profile(profile_id):
     # Close Connection
     cur.close
 
-    return render_template('profile.html', profile=profile)
+    return render_template('profile.html', profile=profile, images=images)
 
 
 @app.route('/profiles', methods=['GET', 'POST'])
@@ -1302,6 +1306,87 @@ def load_counters():
     cur.close
 
     return jsonify(mycounters)
+
+
+@app.route('/upload_images', methods=['POST'])
+def upload_images():
+    try:
+        profile_id = request.form['pid']
+        for f in request.files.getlist('file[]'):
+            filename = secure_filename(f.filename)
+
+            today_date = date.today()
+            today_path = app.config['profile-images'] + '/' + today_date.strftime("%Y/%m/%d")
+
+            local_host_path = 'http://127.0.0.1:8888/content/uploads/' + today_date.strftime("%Y/%m/%d")
+
+            if not os.path.exists(today_path):
+                os.makedirs(today_path)
+                f.save(os.path.join(today_path, filename))
+            else:
+                if os.path.isfile(today_path + '/' + filename):
+
+                    while os.path.isfile(today_path + '/' + filename):
+                        filename = increment_filename(filename)
+
+                    f.save(os.path.join(today_path, filename))
+                else:
+                    f.save(os.path.join(today_path, filename))
+
+            resize_and_crop(today_path + '/' + filename, today_path + '/' + filename, (600, 600), 'middle')
+
+            img_path = local_host_path + '/' + filename
+
+            insert_images(profile_id, img_path, 'IMG', 5)
+
+        return 'UPLOAD COMPLETED'
+
+    except IOError:
+        print('An error occured trying to read the file.')
+
+    except ValueError:
+        print('Non-numeric data found in the file.')
+
+    except ImportError:
+        print
+        "NO module found"
+
+    except FileNotFoundError:
+        print('File was not Found')
+
+    except KeyboardInterrupt:
+        print('You cancelled the operation.')
+    except:
+        print('An error occured.')
+
+
+def insert_images(profileid, imgpath, imgtype, priority):
+    query = "INSERT INTO images(profile_id,imgpath,type,priority)" \
+            "VALUES(%s,%s,%s,%s)"
+    args = (profileid, imgpath, imgtype, priority)
+
+    try:
+        # Create cursor
+        cur = mysql.connection.cursor()
+
+        #  Execute query
+        #  cur.execute("INSERT INTO users(name, email, username, password) VALUES( %s, %s, %s, %s)",
+        #   (name, email, username, password))
+        cur.execute(query, args)
+
+        # commit DB
+        mysql.connection.commit()
+
+        # Close connection
+        cur.close()
+
+        return True
+    except:
+        print("Unknown error occurred")
+        return False
+
+    finally:
+        cur.close()
 
 
 if __name__ == '__main__':
